@@ -1,5 +1,4 @@
 ---
-import { getCourseDataByName } from "@/data/coursesService";
 import CourseLayout from "@layouts/CourseLayout.astro";
 
 // const lectures = [
@@ -67,7 +66,6 @@ import CourseLayout from "@layouts/CourseLayout.astro";
 //         href: "http://labcolor.space/lecture9/index.html",
 //     },
 // ];
-const clientSide = await getCourseDataByName("client-side");
 ---
 
-<CourseLayout {...clientSide} />
+<CourseLayout />

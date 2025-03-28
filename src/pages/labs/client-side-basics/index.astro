@@ -1,12 +1,9 @@
 ---
-import { getCourseDataByName } from "@/data/coursesService";
 import Accordion from "@components/Accordion.astro";
 import CourseLayout from "@layouts/CourseLayout.astro";
-
-const clientSideBasics = await getCourseDataByName("client-side-basics");
 ---
 
-<CourseLayout {...clientSideBasics}>
+<CourseLayout>
     <h2 class="title">Другая информация</h2>
     <Accordion>
         <h4 slot="summary">Оценка за курс</h4>
