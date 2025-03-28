@@ -3,7 +3,7 @@ import ShareIcon from "public/assets/img/ShareIcon.astro";
 import Heading from "@components/Heading.astro";
 import ButtonTop from "@components/navigation/ButtonTop.astro";
 import BaseLayout from "./BaseLayout.astro";
-import { teachers, mentors } from "@/data/people";
+import { teachers, mentors } from "@/data/peopleService";
 
 const { entry } = Astro.props;
 
@@ -12,7 +12,9 @@ const author: string = entry.body.split("_")[1].split("Автор:")[1].trim();
 
 const people = [...mentors, ...teachers];
 
-const activeAuthor = people.find((person) => person.fullName.includes(author));
+const activeAuthor = people.find((person) =>
+    person.first_name.includes(author)
+);
 ---
 
 <script>

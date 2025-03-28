@@ -1,34 +1,12 @@
 ---
+import { getCourseDataByName } from "@/data/coursesService";
 import Accordion from "@components/Accordion.astro";
 import CourseLayout from "@layouts/CourseLayout.astro";
-import { getCollection } from "astro:content";
 
-const yearOnMain = "2024";
-
-const allCourses = await getCollection("courses");
-
-const clientSideBasics = allCourses.filter((post) =>
-    post.id.includes(`client-side-basics/full-time/${yearOnMain}`)
-);
-
-const labs = clientSideBasics.filter((post) => post.data.type === "labs");
-const schedule = clientSideBasics.filter(
-    (post) => post.data.type === "schedule"
-);
-const rk = clientSideBasics.filter((post) => post.data.type === "rk");
-const statementHref =
-    "https://docs.google.com/spreadsheets/d/1ex4WJz5JM003zWcFaSMEy-rjsCUg_umqwixbh-9DJAo";
+const clientSideBasics = await getCourseDataByName("client-side-basics");
 ---
 
-<CourseLayout
-    title=`Основы веб\‑разработки на клиенте`
-    description="Изучаем основы JavaScript и знакомимся с различными API, предоставляемыми браузером"
-    labs={labs}
-    rk={rk}
-    schedule={schedule}
-    statementHref={statementHref}
-    name="client-side-basics"
->
+<CourseLayout {...clientSideBasics}>
     <h2 class="title">Другая информация</h2>
     <Accordion>
         <h4 slot="summary">Оценка за курс</h4>

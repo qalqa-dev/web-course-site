@@ -1,46 +1,57 @@
 ---
+import LectureCard from "@/components/LectureCard.astro";
+import {
+    Course,
+    courseType,
+    Lab,
+    Schedule,
+    Test,
+} from "@/types/entities/Courses";
 import Heading from "@components/Heading.astro";
-import LectureCard from "@components/LectureCard.astro";
 import LinkCard from "@components/LinkCard.astro";
-import { CourseLayoutProps } from "../types/Courses";
 import BaseLayoutSnow from "./BaseLayoutSnow.astro";
 
-interface Props extends CourseLayoutProps {}
+interface Props extends Course {}
 
 const {
     title,
     description,
-    name, // Пускай пока будет, возможно понадобится
-    statementHref,
+    name, // Понадобился)
+    statement,
     lectures,
     schedule,
     labs,
-    rk,
+    tests,
+    year,
+    type,
 }: Props = Astro.props;
 
 const baseUrl = import.meta.env.BASE_URL;
+
+const getHref = (post: Schedule | Lab | Test) => {
+    return `${baseUrl}/labs/${name}/${type === courseType.FULLTIME ? "full-time" : "distance"}/${year}/${post.name.slice(0, -3)}`;
+};
 ---
 
 <BaseLayoutSnow>
     <Heading title={title} description={description} />
     <section>
         {
-            (statementHref || schedule) && (
+            (statement || schedule) && (
                 <div class="max-w-screen px-5 lg:max-w-screen-lg xl:max-w-screen-xl mx-auto mb-30">
                     <ul class="grid grid-cols-1 md:grid-cols-2 gap-5 w-full">
-                        {statementHref && (
+                        {statement && (
                             <LinkCard
                                 title="Ведомость и доп. материалы"
-                                href={statementHref}
+                                href={statement}
                             />
                         )}
-                        {schedule &&
-                            schedule.map((post) => (
-                                <LinkCard
-                                    title={post.data.title}
-                                    href={`${baseUrl}/labs/${post.id}`}
-                                />
-                            ))}
+                        {schedule && (
+                            <LinkCard
+                                title={schedule.title}
+                                href={getHref(schedule)}
+                            />
+                        )}
                     </ul>
                 </div>
             )
@@ -54,24 +65,19 @@ const baseUrl = import.meta.env.BASE_URL;
                     <ul class="grid grid-cols-1 md:grid-cols-2 gap-5 w-full">
                         {labs
                             .sort((prev, next) => {
-                                const prevNumber = prev.data?.number ?? "";
-                                const nextNumber = next.data?.number ?? "";
-                                return (
-                                    parseInt(prevNumber) - parseInt(nextNumber)
-                                );
+                                return prev.number - next.number;
                             })
                             .map((post) => {
-                                const number = post.data?.number ?? "";
+                                const number = post.number ?? 0;
 
                                 return (
                                     <LinkCard
-                                        title={post.data.title}
-                                        number={(parseInt(number) / 10)
+                                        title={post.title}
+                                        number={(number / 10)
                                             .toFixed(1)
-                                            .toString()
                                             .split(".")
                                             .join("")}
-                                        href={`${baseUrl}/labs/${post.id}`}
+                                        href={getHref(post)}
                                     />
                                 );
                             })}
@@ -80,7 +86,7 @@ const baseUrl = import.meta.env.BASE_URL;
             )
         }
         {
-            lectures && (
+            lectures && lectures.length > 0 && (
                 <div class="section-lectures bg-bg-primary py-20 rounded-[30px] sm:rounded-[60px] mb-30">
                     <div class="px-5 lg:max-w-screen-lg xl:max-w-screen-xl mx-auto">
                         <h2 class="text-center mb-10">Лекции</h2>
@@ -134,17 +140,17 @@ const baseUrl = import.meta.env.BASE_URL;
             )
         }
         {
-            rk && (
+            tests && (
                 <div class="max-w-screen px-5 md:px-15 xl:px-0 lg:max-w-screen-lg xl:max-w-screen-xl mx-auto mb-30">
                     <h2 class="text-center text-text-inverted">
                         Рубежный контроль
                     </h2>
                     <ul class="grid grid-cols-1 md:grid-cols-2 gap-5 w-full">
-                        {rk.length !== 0 ? (
-                            rk.map((post) => (
+                        {tests.length !== 0 ? (
+                            tests.map((post) => (
                                 <LinkCard
-                                    title={post.data.title}
-                                    href={`${baseUrl}/labs/${post.id}`}
+                                    title={post.title}
+                                    href={getHref(post)}
                                 />
                             ))
                         ) : (
@@ -162,8 +168,8 @@ const baseUrl = import.meta.env.BASE_URL;
     {
         (!labs || labs.length === 0) &&
             (!lectures || lectures.length === 0) &&
-            (!rk || rk.length === 0) &&
-            !statementHref &&
+            (!tests || tests.length === 0) &&
+            !statement &&
             !schedule && (
                 <div
                     id="no-results"

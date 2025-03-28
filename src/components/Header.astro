@@ -1,7 +1,7 @@
 ---
 import BurgerMenu from "./BurgerMenu.astro";
 import ThemeToggler from "./navigation/ThemeToggler.astro";
-import courses from "@/data/courses";
+import { shortCourses } from "@/data/coursesService";
 
 const baseUrl = import.meta.env.BASE_URL;
 
@@ -53,13 +53,13 @@ const links = [
                 {
                     (
                         <ul class="dropdown__list-sm flex flex-col md:hidden justify-center gap-0">
-                            {courses
+                            {shortCourses
                                 .filter((course) => course.id !== "archive")
                                 .map((course) => (
                                     <li class="dropdown__item">
                                         <a
                                             class="dropdown__link text-[16px] px-7 py-5  userActionsLink"
-                                            href={`${baseUrl}/labs/${course.id}`}
+                                            href={`${baseUrl}/labs/${course.name}`}
                                         >
                                             {course.title}
                                         </a>
@@ -77,13 +77,13 @@ const links = [
     {
         (
             <ul class="dropdown__list hidden md:flex flex-col justify-center gap-0 lg:gap-3 bg-bg-menu backdrop-blur-2xl">
-                {courses
+                {shortCourses
                     .filter((course) => course.id !== "archive")
                     .map((course) => (
                         <li class="dropdown__item">
                             <a
                                 class="dropdown__link flex w-full md:text-base lg:text-xl p-3 lg:p-5 userActionsLink"
-                                href={`${baseUrl}/labs/${course.id}`}
+                                href={`${baseUrl}/labs/${course.name}`}
                             >
                                 {course.title}
                             </a>

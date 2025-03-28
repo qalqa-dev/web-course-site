@@ -3,10 +3,10 @@ import CourseCard from "@components/CourseCard.astro";
 import PeopleCard from "@components/PeopleCard.astro";
 import UsefulCard from "@components/UsefulCard.astro";
 import BaseLayoutSnow from "@layouts/BaseLayoutSnow.astro";
-import { teachers, mentors } from "@/data/people";
-import courses from "@/data/courses";
+import { shortCourses } from "@/data/coursesService";
 
 import { getCollection } from "astro:content";
+import { teachers, mentors } from "@/data/peopleService";
 const allUseful = await getCollection("useful");
 const lengths = allUseful.map((post) => post.body?.length);
 
@@ -68,27 +68,34 @@ const baseUrl = import.meta.env.BASE_URL;
             <div class="courses-list flex flex-col">
                 <ul id="staticCourses" class="flex flex-col gap-5 mb-5">
                     {
-                        courses
+                        shortCourses
                             .slice(0, 3)
                             .map((course) => (
                                 <CourseCard
                                     {...course}
-                                    href={`${baseUrl}/labs/${course.id}`}
+                                    href={`${baseUrl}/labs/${course.name}`}
                                 />
                             ))
                     }
                 </ul>
                 <ul id="hiddenCourses" class="flex flex-col gap-5">
                     {
-                        courses
-                            .slice(3)
-                            .map((course) => (
-                                <CourseCard
-                                    {...course}
-                                    href={`${baseUrl}/labs/${course.id}`}
-                                />
-                            ))
+                        shortCourses.length > 3 &&
+                            shortCourses
+                                .slice(3)
+                                .map((course) => (
+                                    <CourseCard
+                                        {...course}
+                                        href={`${baseUrl}/labs/${course.name}`}
+                                    />
+                                ))
                     }
+
+                    <CourseCard
+                        title="Архив"
+                        description="Здесь вы можете найти старые лабораторные работы"
+                        href={`${baseUrl}/labs/archive`}
+                    />
                 </ul>
             </div>
             <button
@@ -111,11 +118,7 @@ const baseUrl = import.meta.env.BASE_URL;
             >
                 {
                     teachers.map((teacher) => (
-                        <PeopleCard
-                            {...teacher}
-                            name={teacher.fullName}
-                            disableContact
-                        />
+                        <PeopleCard {...teacher} disableContact />
                     ))
                 }
             </ul>
@@ -175,7 +178,7 @@ const baseUrl = import.meta.env.BASE_URL;
             <ul
                 class="mentors-list grid grid-cols-1 xs:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-3 gap-5"
             >
-                <PeopleCard {...mentors[0]} />
+                <PeopleCard {...mentors[0]} middle_name="" />
                 <li>
                     <p class="order--1 lg:order-0 px-1">
                         Мы поддерживаем вас на пути освоения первых двух курсов,
@@ -199,11 +202,8 @@ const baseUrl = import.meta.env.BASE_URL;
                         >Смотреть всех</button
                     >
                 </li>
-                {
-                    mentors
-                        .slice(2, 4)
-                        .map((mentor) => <PeopleCard {...mentor} />)
-                }
+                {mentors[2] && <PeopleCard {...mentors[2]} middle_name="" />}
+                {mentors[3] && <PeopleCard {...mentors[3]} middle_name="" />}
             </ul>
         </div>
     </section>
