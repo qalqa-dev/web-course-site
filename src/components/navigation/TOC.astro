@@ -21,7 +21,7 @@ const marginVariants: Record<number, string> = {
     {
         headings.map((heading) => (
             <li class:list={["mb-2.5", marginVariants[heading.depth - 1]]}>
-                <a class="font-thin" href={"#" + heading.slug}>
+                <a class="font-thin" href={"/#" + heading.slug}>
                     {heading.text}
                 </a>
             </li>

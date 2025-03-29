@@ -24,7 +24,7 @@ const { title, description, number, backLink } = Astro.props;
                 class="mb-1"
             /><span>Назад</span></button
         >
-        {number && <h2>{number}</h2>}
+        {number !== undefined && <h2>{number}</h2>}
         <h1 class="line-height-[1.1] max-w-[760px]">
             {title}
         </h1>

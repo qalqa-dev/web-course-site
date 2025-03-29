@@ -1,65 +1,36 @@
 ---
 import Heading from "@components/Heading.astro";
 import ButtonTop from "@components/navigation/ButtonTop.astro";
-import Pagination from "@components/navigation/Pagination.astro";
-import TOC from "@components/navigation/TOC.astro";
-import archiveYear from "@pages/archive.astro";
-import { LabLayoutProps } from "../types/Labs";
 import BaseLayout from "./BaseLayout.astro";
 
-interface Props extends LabLayoutProps {}
-
-const { frontmatter, headinglist, labUrl }: Props = Astro.props;
-
-let number: string = "";
-
-if (frontmatter.number) {
-    number = (parseInt(frontmatter.number) / 10)
-        .toFixed(1)
-        .toString()
-        .split(".")
-        .join("");
-}
-const courseId = labUrl.split("/")[0];
-const isFulltime = labUrl.includes("full-time");
-const labYear = labUrl.split("/")[2];
+const { name, title, number, headings } = Astro.props;
 ---
 
-<BaseLayout title={frontmatter.title}>
+<BaseLayout title={title}>
     <ButtonTop />
-    <Heading
-        title={frontmatter.title}
-        number={number}
-        backLink={archiveYear === labYear
-            ? "archive"
-            : `courses/${courseId}${isFulltime ? "" : "-distance"}`}
-    />
+    <Heading title={title} number={number} />
     <article class="box-content max-w-[700px] xl:max-w-screen-xl m-auto px-3.5">
         <div
             class="xl:grid grid-cols-[1fr_700px_1fr] gap-4 items-start text-text-inverted mb-5"
         >
             <aside class="side mx-auto top-25 pt-6 xl:px-6 xl:pt-0 xl:sticky">
-                {
-                    frontmatter.type !== "schedule" && (
-                        <TOC headings={headinglist} />
-                    )
-                }
+                <!-- {(<TOC headings={headings} />)} -->
             </aside>
             <div class="md">
                 <slot />
             </div>
         </div>
         <div class="mb-20">
-            {
-                frontmatter.type === "labs" && (
+            <!-- {
+                (
                     <Pagination
-                        slug={frontmatter.number}
-                        collection={courseId}
+                        slug={number}
+                        collection={}
                         isFulltime={isFulltime}
                         yearOnMain={labYear}
                     />
                 )
-            }
+            } -->
         </div>
     </article>
 </BaseLayout>

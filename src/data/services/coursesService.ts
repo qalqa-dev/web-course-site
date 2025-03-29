@@ -1,5 +1,5 @@
 import { Course } from "@/types/entities/Courses.js";
-import { api } from "./api.js";
+import { api } from "../api.js";
 
 export const shortCourses = await api.getData<Course[]>("/courses/short");
 

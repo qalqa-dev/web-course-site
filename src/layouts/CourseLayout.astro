@@ -1,12 +1,6 @@
 ---
 import LectureCard from "@/components/LectureCard.astro";
-import {
-    Course,
-    courseType,
-    Lab,
-    Schedule,
-    Test,
-} from "@/types/entities/Courses";
+import { Course, Lab, Schedule, Test } from "@/types/entities/Courses";
 import Heading from "@components/Heading.astro";
 import LinkCard from "@components/LinkCard.astro";
 import BaseLayoutSnow from "./BaseLayoutSnow.astro";
@@ -27,7 +21,7 @@ const {
 }: Props = Astro.props;
 
 const getHref = (post: Schedule | Lab | Test) => {
-    return `/courses/${name}/${type === courseType.FULLTIME ? "full-time" : "distance"}/${year}/${post.name.slice(0, -3)}`;
+    return `/courses/${name}/${post.name}`;
 };
 ---
 

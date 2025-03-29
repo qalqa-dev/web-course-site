@@ -3,10 +3,12 @@ import CourseCard from "@components/CourseCard.astro";
 import PeopleCard from "@components/PeopleCard.astro";
 import UsefulCard from "@components/UsefulCard.astro";
 import BaseLayoutSnow from "@layouts/BaseLayoutSnow.astro";
-import { shortCourses } from "@/data/coursesService";
+import { shortCourses } from "@/data/services/coursesService";
 
 import { getCollection } from "astro:content";
-import { teachers, mentors } from "@/data/peopleService";
+import { teachers, mentors } from "@/data/services/peopleService";
+
+export const prerender = true;
 const allUseful = await getCollection("useful");
 const lengths = allUseful.map((post) => post.body?.length);
 
