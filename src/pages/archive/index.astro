@@ -40,7 +40,7 @@ const archives = archiveYears.map((year) => ({
                                 {webBasics.slice(0, 4).sort((postA, postB) => postA.data.number - postB.data.number).map((post, index) => (
                                     <LinkCard
                                         title={post.data.title}
-                                        href={`/web-course-site/courses/${post.id}`}
+                                        href={`/courses/${post.id}`}
                                         number={((index + 1) / 10)
                                             .toFixed(1)
                                             .toString()
@@ -61,7 +61,7 @@ const archives = archiveYears.map((year) => ({
                                     {webBasics.slice(4).sort((postA, postB) => postA.data.number - postB.data.number).map((post, index) => (
                                         <LinkCard
                                             title={post.data.title}
-                                            href={`/web-course-site/courses/${post.id}`}
+                                            href={`/courses/${post.id}`}
                                             number={((index + 5) / 10)
                                                 .toFixed(1)
                                                 .toString()
@@ -91,7 +91,7 @@ const archives = archiveYears.map((year) => ({
                                 {clientSideBasics.slice(0, 4).sort((postA, postB) => postA.data.number - postB.data.number).map((post) => (
                                     <LinkCard
                                         title={post.data.title}
-                                        href={`/web-course-site/courses/${post.id}`}
+                                        href={`/courses/${post.id}`}
                                         number={(post.data.number / 10)
                                             .toFixed(1)
                                             .toString()
@@ -112,7 +112,7 @@ const archives = archiveYears.map((year) => ({
                                     {clientSideBasics.slice(4).sort((postA, postB) => postA.data.number - postB.data.number).map((post) => (
                                         <LinkCard
                                             title={post.data.title}
-                                            href={`/web-course-site/courses/${post.id}`}
+                                            href={`/courses/${post.id}`}
                                             number={(post.data.number / 10)
                                                 .toFixed(1)
                                                 .toString()

@@ -26,10 +26,8 @@ const {
     type,
 }: Props = Astro.props;
 
-const baseUrl = import.meta.env.BASE_URL;
-
 const getHref = (post: Schedule | Lab | Test) => {
-    return `${baseUrl}/courses/${name}/${type === courseType.FULLTIME ? "full-time" : "distance"}/${year}/${post.name.slice(0, -3)}`;
+    return `/courses/${name}/${type === courseType.FULLTIME ? "full-time" : "distance"}/${year}/${post.name.slice(0, -3)}`;
 };
 ---
 
@@ -99,7 +97,7 @@ const getHref = (post: Schedule | Lab | Test) => {
                                                 return (
                                                     <div class="flex aspect-ratio-square rounded-[30px] overflow-hidden">
                                                         <img
-                                                            src={`${baseUrl}/assets/img/cat-chill-table.svg`}
+                                                            src={`/assets/img/cat-chill-table.svg`}
                                                             alt="лапка котика с сердечками"
                                                             class="mx-auto"
                                                         />
@@ -109,7 +107,7 @@ const getHref = (post: Schedule | Lab | Test) => {
                                                 return (
                                                     <div class="flex aspect-ratio-square rounded-[30px] overflow-hidden">
                                                         <img
-                                                            src={`${baseUrl}/assets/img/cat-table-vue.svg`}
+                                                            src={`/assets/img/cat-table-vue.svg`}
                                                             alt="лапка котика с сердечками"
                                                             class="mx-auto"
                                                         />
@@ -119,7 +117,7 @@ const getHref = (post: Schedule | Lab | Test) => {
                                                 return (
                                                     <div class="flex aspect-ratio-square rounded-[30px] overflow-hidden">
                                                         <img
-                                                            src={`${baseUrl}/assets/img/cat-cute.svg`}
+                                                            src={`/assets/img/cat-cute.svg`}
                                                             alt="лапка котика с сердечками"
                                                             class="mx-auto"
                                                         />
@@ -182,13 +180,13 @@ const getHref = (post: Schedule | Lab | Test) => {
                         Попробуйте поискать в другом месте.
                     </p>
                     <img
-                        src={`${baseUrl}/assets/img/paw-heart.svg`}
+                        src={`/assets/img/paw-heart.svg`}
                         alt="лапка котика с сердечками"
                         class="mx-auto mb-3"
                     />
                     <button
                         class="border-1 rounded-[20px] border-text-tertiary p-[20px] w-full md:w-2/3 color-text-tertiary font-titles hover:bg-bg-tertiary hover:text-text-inverted transition duration-300"
-                        onclick={`window.location.href='${baseUrl}'`}
+                        onclick={`window.location.href=''`}
                     >
                         Вернуться на главную
                     </button>

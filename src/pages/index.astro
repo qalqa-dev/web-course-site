@@ -26,8 +26,6 @@ const usefulDynamic = usefulItems
     .slice(0, 2);
 
 const useful = [...usefulStatic, ...usefulDynamic];
-
-const baseUrl = import.meta.env.BASE_URL;
 ---
 
 <BaseLayoutSnow>
@@ -54,7 +52,7 @@ const baseUrl = import.meta.env.BASE_URL;
             <img
                 width="400"
                 height="400"
-                src=`${baseUrl}/assets/img/cat-code.webp`
+                src=`/assets/img/cat-code.webp`
                 alt="смешной котик программирует"
                 loading="lazy"
             />
@@ -73,7 +71,7 @@ const baseUrl = import.meta.env.BASE_URL;
                             .map((course) => (
                                 <CourseCard
                                     {...course}
-                                    href={`${baseUrl}/courses/${course.name}`}
+                                    href={`/courses/${course.name}`}
                                 />
                             ))
                     }
@@ -86,7 +84,7 @@ const baseUrl = import.meta.env.BASE_URL;
                                 .map((course) => (
                                     <CourseCard
                                         {...course}
-                                        href={`${baseUrl}/courses/${course.name}`}
+                                        href={`/courses/${course.name}`}
                                     />
                                 ))
                     }
@@ -94,7 +92,7 @@ const baseUrl = import.meta.env.BASE_URL;
                     <CourseCard
                         title="Архив"
                         description="Здесь вы можете найти старые лабораторные работы"
-                        href={`${baseUrl}/archive`}
+                        href={`/archive`}
                     />
                 </ul>
             </div>
@@ -154,13 +152,13 @@ const baseUrl = import.meta.env.BASE_URL;
                     class="other-useful flex flex-col justify-between order-1 lg:order-0"
                 >
                     <img
-                        src=`${baseUrl}/assets/img/cat-chill.svg`
+                        src=`/assets/img/cat-chill.svg`
                         alt="чилл кот лежит за ноутбуком"
                         aria-hidden="true"
                     />
                     <button
                         class="font-titles font-600 bg-bg-accent_second sm:px-5 px-11.5 py-5 rounded-[20px] userActionsLinkAlt"
-                        onclick={`window.location.href='/web-course-site/useful/'`}
+                        onclick={`window.location.href='/useful/'`}
                         >Еще больше полезностей</button
                     >
                 </li>
@@ -192,13 +190,13 @@ const baseUrl = import.meta.env.BASE_URL;
                 >
                     <img
                         class="aspect-ratio-1"
-                        src=`${baseUrl}/assets/img/paw-heart.svg`
+                        src=`/assets/img/paw-heart.svg`
                         alt="Лапка котика с сердечками"
                         aria-hidden="true"
                     />
                     <button
                         class="font-titles text-text-primary font-600 bg-bg-accent_second px-11.5 py-5 rounded-[20px] userActionsLinkAlt"
-                        onclick={`window.location.href='/web-course-site/mentors'`}
+                        onclick={`window.location.href='/mentors'`}
                         >Смотреть всех</button
                     >
                 </li>

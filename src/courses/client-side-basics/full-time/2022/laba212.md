@@ -32,7 +32,7 @@ type: "labs"
 1. При отправке запроса требуется добавить заголовок `Username`, а в значении передать ваш ник на Github.
 
 <figure style="border: 1px solid grey; border-radius: 10px; padding: 1em; width: 100%; margin-inline: auto;">
-<img src="/web-course-site/comment.jpg" alt="пример формы" style="margin: 0 auto;">
+<img src="/comment.jpg" alt="пример формы" style="margin: 0 auto;">
 <figcaption style="text-align: center">Пример формы</figcaption>
 </figure>
 
@@ -46,7 +46,7 @@ type: "labs"
 1. Указывается время и дата создания комментариев. Сами комментарии отображаются от старых к новым, то есть сверху старые комментарии.
 
 <figure style="border: 1px solid grey; border-radius: 10px; padding: 1em; width: 90%; margin-inline: auto;">
-<img src="/web-course-site/show-comments.jpg" alt="пример комментариев" style="margin: 0 auto;">
+<img src="/show-comments.jpg" alt="пример комментариев" style="margin: 0 auto;">
 <figcaption style="text-align: center">Пример отображения комментариев</figcaption>
 </figure>
 

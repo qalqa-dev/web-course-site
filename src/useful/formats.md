@@ -13,7 +13,7 @@ _Автор: Кудинов Данила_
 
 ## JPG (Joint Photographic Experts Group)
 
-![JPEG](/web-course-site/formats/image1.png)
+![JPEG](/formats/image1.png)
 
 **Плюсы:**
 
@@ -27,7 +27,7 @@ _Автор: Кудинов Данила_
 
 ## PNG (Portable Network Graphics)
 
-![PNG](/web-course-site/formats/image2.png)
+![PNG](/formats/image2.png)
 
 **Плюсы:**
 
@@ -56,7 +56,7 @@ _Автор: Кудинов Данила_
 
 ## WebP
 
-![WebP](/web-course-site/formats/image4.png)
+![WebP](/formats/image4.png)
 
 **Плюсы:**
 
@@ -75,7 +75,7 @@ _Автор: Кудинов Данила_
 
 ## SVG (Scalable Vector Graphics)
 
-![SVG](/web-course-site/formats/image3.png)
+![SVG](/formats/image3.png)
 
 **Плюсы:**
 
@@ -93,7 +93,7 @@ _Автор: Кудинов Данила_
 
 ## Зачем нужна оптимизация изображений?
 
-![Оптимизация](/web-course-site/formats/image5.png)
+![Оптимизация](/formats/image5.png)
 
 Оптимизация изображений — это секретный ингредиент, который помогает сайтам загружаться быстрее и работать лучше. В мире, где каждая секунда на вес золота, топовые компании соревнуются не только за внимание пользователей, но и за скорость работы своих веб-страниц.
 
@@ -153,23 +153,23 @@ SVG — это формат векторной графики. В отличие
 ## Примеры SVG тегов:
 
 - `<circle>` — базовая SVG фигура, используется для создания кругов c помощью координат центра и размера радиуса.
-  ![Пример circle](/web-course-site/formats/image6.png)
+  ![Пример circle](/formats/image6.png)
 
 - `<rect>` — используется для отрисовки прямоугольников по координатам угла, длины и высоты прямоугольника. Можно применять для скругленных углов.
-  ![Пример rect](/web-course-site/formats/image7.png)
+  ![Пример rect](/formats/image7.png)
 
 - `<polyline>` — создает прямые линии, соединяющие несколько точек. Используется для создания открытых фигур, так как последняя точка не обязательно должна быть соединена с первой.
-  ![Пример polyline](/web-course-site/formats/image8.png)
+  ![Пример polyline](/formats/image8.png)
 
 - `<ellipse>` — рисует эллипсы на основе координат центра и их радиусов по x и y.
-  ![Пример ellipse](/web-course-site/formats/image9.png)
+  ![Пример ellipse](/formats/image9.png)
 
 - `<line>` — создаёт линию, соединяющую две точки.
-  ![Пример line](/web-course-site/formats/image10.png)
+  ![Пример line](/formats/image10.png)
 
 - `<path>` — универсальный элемент для рисования сложных форм.
-  ![Пример path](/web-course-site/formats/image11.png)
+  ![Пример path](/formats/image11.png)
 
 - `<use>` — позволяет повторно использовать существующие элементы графики. Это помогает оптимизировать код и повторно использовать один и тот же элемент в разных местах, изменяя его позицию, размер и стили.
-  ![Пример use](/web-course-site/formats/image12.png)
-  ![Пример use](/web-course-site/formats/image13.png)
+  ![Пример use](/formats/image12.png)
+  ![Пример use](/formats/image13.png)

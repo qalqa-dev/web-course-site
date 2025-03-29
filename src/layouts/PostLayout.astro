@@ -7,7 +7,6 @@ import { teachers, mentors } from "@/data/peopleService";
 
 const { entry } = Astro.props;
 
-const baseUrl = import.meta.env.BASE_URL;
 const author: string = entry.body.split("_")[1].split("Автор:")[1].trim();
 
 const people = [...mentors, ...teachers];
@@ -26,7 +25,7 @@ const activeAuthor = people.find((person) =>
 
     const getLastEditDate = (filleName: string) => {
         const res = fetch(
-            `https://api.github.com/repos/slavaver/web-course-site/commits?path=/src/useful/${filleName}.md&per_page=1`
+            `https://api.github.com/repos/slavaver/commits?path=/src/useful/${filleName}.md&per_page=1`
         );
         return res
             .then((res) => res.json())
@@ -68,7 +67,7 @@ const activeAuthor = people.find((person) =>
                     >
                         <img
                             src={activeAuthor?.imgUrl ||
-                                `${baseUrl}/assets/img/cat-glasses.svg`}
+                                `/assets/img/cat-glasses.svg`}
                             class="w-full h-full object-contain object-bottom"
                             alt={author}
                         />

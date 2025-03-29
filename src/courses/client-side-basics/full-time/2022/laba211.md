@@ -17,17 +17,17 @@ type: "labs"
 1. В созданный элемент добавить форму с текстовым полем для создания записей с кнопкой о добавлении новой записи и секцию для добавленных записей.
 
 <figure style="border: 1px solid grey; border-radius: 10px; padding: 1em; width: 60%; margin-inline: auto;">
-<img src="/web-course-site/step_1.jpg" alt="пример экрана" style="margin: 0 auto;">
+<img src="/step_1.jpg" alt="пример экрана" style="margin: 0 auto;">
 <figcaption style="text-align: center">Начальный пример экрана</figcaption>
 </figure>
 
 <figure style="border: 1px solid grey; border-radius: 10px; padding: 1em; width: 60%; margin-inline: auto;">
-<img src="/web-course-site/step_2.jpg" alt="пример заполнения поля" style="margin: 0 auto;">
+<img src="/step_2.jpg" alt="пример заполнения поля" style="margin: 0 auto;">
 <figcaption style="text-align: center">Пример заполнения формы</figcaption>
 </figure>
 
 <figure style="border: 1px solid grey; border-radius: 10px; padding: 1em; width: 60%; margin-inline: auto;">
-<img src="/web-course-site/step_3.jpg" alt="пример заполнения поля" style="margin: 0 auto;">
+<img src="/step_3.jpg" alt="пример заполнения поля" style="margin: 0 auto;">
 <figcaption style="text-align: center">Пример добавления 2-й записи</figcaption>
 </figure>
 

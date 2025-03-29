@@ -18,7 +18,6 @@ const {
     role,
     disableContact,
 } = Astro.props;
-const baseUrl = import.meta.env.BASE_URL;
 ---
 
 <li class="persons-item">
@@ -43,7 +42,7 @@ const baseUrl = import.meta.env.BASE_URL;
                                 <span class="text-white">{`@${contact}`}</span>
                                 <img
                                     class="w-6 h-6"
-                                    src={`${baseUrl}/assets/img/tg-logo.svg`}
+                                    src={`/assets/img/tg-logo.svg`}
                                     alt="Telegram"
                                 />
                             </div>
@@ -57,7 +56,7 @@ const baseUrl = import.meta.env.BASE_URL;
                         <img
                             class="w-3/4 ml-auto mr-10 transition duration-300 group-hover:blur-sm group-focus:blur-sm"
                             loading="lazy"
-                            src={`${baseUrl}/assets/img/cat-glasses.svg`}
+                            src={`/assets/img/cat-glasses.svg`}
                             alt="Cat Glasses"
                         />
                         <div class="absolute inset-0 flex items-center justify-center bg-bg-menu bg-opacity-50 opacity-0 transition duration-300 group-focus:opacity-100 group-hover:opacity-100">
@@ -65,7 +64,7 @@ const baseUrl = import.meta.env.BASE_URL;
                                 <span class="text-white">{`@${contact}`}</span>
                                 <img
                                     class="w-6 h-6"
-                                    src={`${baseUrl}/assets/img/tg-logo.svg`}
+                                    src={`/assets/img/tg-logo.svg`}
                                     alt="Telegram"
                                 />
                             </div>
@@ -101,7 +100,7 @@ const baseUrl = import.meta.env.BASE_URL;
                             <img
                                 class="w-3/4 ml-auto mr-10"
                                 loading="lazy"
-                                src={`${baseUrl}/assets/img/cat-glasses.svg`}
+                                src={`/assets/img/cat-glasses.svg`}
                                 alt="Cat Glasses"
                             />
                         </div>

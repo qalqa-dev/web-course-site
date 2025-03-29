@@ -19,7 +19,7 @@ type: "labs"
 
 ## Базовые команды
 
-[Гайд по Git](/web-course-site/useful/git)
+[Гайд по Git](/useful/git)
 
 Команды git:
 

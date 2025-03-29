@@ -22,23 +22,23 @@ Flexbox – CSS механизм, который позволяет контро
 
 Главной осью flex-контейнера является направление, вдоль которого располагаются дочерние элементы - от начала оси к концу. Поперечной осью называется направление перпендикулярное главной оси.
 
-![Главная ось](/web-course-site/flex/image1.png)
+![Главная ось](/flex/image1.png)
 
 По умолчанию главная ось направлена слева направо, но ее можно развернуть при помощи свойства `flex-direction: row / column / row-reverse / column-reverse`. Поперечная ось всегда перпендикулярна главной и поворачивается вместе с ней.
 
 На рисунках красным указана главная ось, синим - поперечная, а точками начало осей:
 
 - **row** (default) – слева направо
-  ![row](/web-course-site/flex/image2.png)
+  ![row](/flex/image2.png)
 
 - **column** – сверху вниз
-  ![column](/web-course-site/flex/image3.png)
+  ![column](/flex/image3.png)
 
 - **row-reverse** – справа налево
-  ![row-reverse](/web-course-site/flex/image4.png)
+  ![row-reverse](/flex/image4.png)
 
 - **column-reverse** – снизу вверх
-  ![column-reverse](/web-course-site/flex/image5.png)
+  ![column-reverse](/flex/image5.png)
 
 ## Распределение flex-элементов
 
@@ -47,19 +47,19 @@ Flexbox – CSS механизм, который позволяет контро
 Выровнять элементы вдоль главной оси можно при помощи свойства `justify-content: flex-start / flex-end / center / space-between / space-around / space-evenly`.
 
 - **flex-start** (default) – у начала главной оси.
-  ![flex-start](/web-course-site/flex/image6.png)
+  ![flex-start](/flex/image6.png)
 
 - **flex-end** – в конце главной оси.
-  ![flex-end](/web-course-site/flex/image7.png)
+  ![flex-end](/flex/image7.png)
 
 - **center** – в центре главной оси.
-  ![center](/web-course-site/flex/image8.png)
+  ![center](/flex/image8.png)
 
 - **space-between** – расстояния между соседними элементами одинаковые, а между элементами и краями flex-контейнера отступов нет.
-  ![space-between](/web-course-site/flex/image9.png)
+  ![space-between](/flex/image9.png)
 
 - **space-around** – расстояния между соседними элементами одинаковое, а между элементами и краями flex-контейнера отступ равный половине расстояния между соседними элементами.
-  ![space-around](/web-course-site/flex/image10.png)
+  ![space-around](/flex/image10.png)
 
 - **space-evenly** – расстояния между элементами и краями flex-контейнера одинаковые.
 
@@ -70,16 +70,16 @@ Flexbox – CSS механизм, который позволяет контро
 Выровнять элементы вдоль поперечной оси можно при помощи свойства `align-items: stretch / flex-start / flex-end / center / baseline`.
 
 - **stretch** (default) – элементы растягиваются на всю высоту/ширину flex-контейнера в зависимости от направления поперечной оси.
-  ![stretch](/web-course-site/flex/image11.png)
+  ![stretch](/flex/image11.png)
 
 - **flex-start** – у начала поперечной оси.
-  ![flex-start](/web-course-site/flex/image12.png)
+  ![flex-start](/flex/image12.png)
 
 - **flex-end** – в конце поперечной оси.
-  ![flex-end](/web-course-site/flex/image13.png)
+  ![flex-end](/flex/image13.png)
 
 - **center** – по центру поперечной оси.
-  ![center](/web-course-site/flex/image14.png)
+  ![center](/flex/image14.png)
 
 - **baseline** – по базовой линии текста внутри них.
 
@@ -98,7 +98,7 @@ Flexbox – CSS механизм, который позволяет контро
 - **nowrap** (default) – перенос отключен.
 - **wrap** – разрешает перенос, ряды/колонки элементов расположены вдоль поперечной оси, начиная от ее начала.
 - **wrap-reverse** – разрешает перенос, ряды/колонки элементов расположены вдоль поперечной оси, начиная от ее конца.
-  ![wrap](/web-course-site/flex/image15.png)
+  ![wrap](/flex/image15.png)
 
 ## Совмещенный синтаксис flex-direction и flex-wrap
 
@@ -126,47 +126,47 @@ flex-flow: column nowrap;
     2. Если значение отлично от `stretch`, то элементы ужимаются под своё содержимое и выравниваются в строках в зависимости от значения `align-items`.
 
 - **flex-start** – в начале поперечной оси.
-  ![flex-start](/web-course-site/flex/image16.png)
+  ![flex-start](/flex/image16.png)
 
 - **flex-end** – в конце поперечной оси.
-  ![flex-end](/web-course-site/flex/image17.png)
+  ![flex-end](/flex/image17.png)
 
 - **center** – в середине поперечной оси так, что отступов между соседними рядами нет, а расстояния до краев flex-контейнера одинаковые.
-  ![center](/web-course-site/flex/image18.png)
+  ![center](/flex/image18.png)
 
 - **space-between** – равномерно распределяет ряды flex-элементов вдоль поперечной оси, расстояния между рядами одинаковые, отступов от краев flex-контейнера нет.
-  ![space-between](/web-course-site/flex/image19.png)
+  ![space-between](/flex/image19.png)
 
 - **space-around** – равномерно распределяет ряды flex-элементов вдоль поперечной оси, расстояния между соседними рядами одинаковые, отступы у краев равны половине расстояния между соседними рядами.
-  ![space-around](/web-course-site/flex/image20.png)
+  ![space-around](/flex/image20.png)
 
 - **space-evenly** – равномерно распределяет ряды вдоль поперечной оси, расстояния от края и между соседними элементами одинаковые.
-  ![space-evenly](/web-course-site/flex/image21.png)
+  ![space-evenly](/flex/image21.png)
 
 Свойство `align-content` «перекрывает» заданное значение `align-items`, которое управляет выравниванием flex-элементов вдоль поперечной оси. Это происходит в любом случае.
 
 ### Расширение и сжатие flex-элементов
 
 Свойство `flex-grow` определяет, насколько элемент может «расти» относительно других flex-элементов внутри контейнера.
-![flex-grow](/web-course-site/flex/image22.png)
+![flex-grow](/flex/image22.png)
 
 Значение определяет пропорцию роста элемента. Если у нескольких элементов установлены разные значения `flex-grow`, то свободное пространство будет распределено пропорционально этим значениям.
 
 Свойство `flex-shrink` определяет, насколько элемент может сжиматься по сравнению с другими элементами в контейнере, если пространство ограничено.
-![flex-shrink](/web-course-site/flex/image23.png)
+![flex-shrink](/flex/image23.png)
 
 ### Базовый размер flex-элемента
 
 Свойство `flex-basis` задает базовый размер флекс элемента по главной оси. Это свойство определяет размер контент-бокса, если не задано иначе через `box-sizing`. `flex-basis` имеет следующие значения:
 
 - `<’width’>` - задает базовую ширину flex-элемента.
-  ![width](/web-course-site/flex/image24.png)
+  ![width](/flex/image24.png)
 
 - **content** - автоматически задаёт размер на основе содержимого flex-элемента.
-  ![content](/web-course-site/flex/image25.png)
+  ![content](/flex/image25.png)
 
 - **auto** – смотрит на ширину/высоту flex-элемента.
-  ![auto](/web-course-site/flex/image26.png)
+  ![auto](/flex/image26.png)
 
 ### Порядковый номер flex-элемента
 

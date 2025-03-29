@@ -4,7 +4,7 @@ import UnoCSS from "unocss/astro";
 // https://astro.build/config
 export default defineConfig({
     site: "https://slavaver.github.io",
-    base: "/web-course-site",
+    base: "/",
     output: "static",
     integrations: [UnoCSS({ injectReset: true })],
     markdown: {
