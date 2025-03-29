@@ -3,7 +3,7 @@ import Heading from "@components/Heading.astro";
 import ButtonTop from "@components/navigation/ButtonTop.astro";
 import Pagination from "@components/navigation/Pagination.astro";
 import TOC from "@components/navigation/TOC.astro";
-import archiveYear from "@pages/labs/archive.astro";
+import archiveYear from "@pages/courses/archive.astro";
 import { LabLayoutProps } from "../types/Labs";
 import BaseLayout from "./BaseLayout.astro";
 
@@ -31,8 +31,8 @@ const labYear = labUrl.split("/")[2];
         title={frontmatter.title}
         number={number}
         backLink={archiveYear === labYear
-            ? "labs/archive"
-            : `labs/${courseId}${isFulltime ? "" : "-distance"}`}
+            ? "courses/archive"
+            : `courses/${courseId}${isFulltime ? "" : "-distance"}`}
     />
     <article class="box-content max-w-[700px] xl:max-w-screen-xl m-auto px-3.5">
         <div

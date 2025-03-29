@@ -73,7 +73,7 @@ const baseUrl = import.meta.env.BASE_URL;
                             .map((course) => (
                                 <CourseCard
                                     {...course}
-                                    href={`${baseUrl}/labs/${course.name}`}
+                                    href={`${baseUrl}/courses/${course.name}`}
                                 />
                             ))
                     }
@@ -86,7 +86,7 @@ const baseUrl = import.meta.env.BASE_URL;
                                 .map((course) => (
                                     <CourseCard
                                         {...course}
-                                        href={`${baseUrl}/labs/${course.name}`}
+                                        href={`${baseUrl}/courses/${course.name}`}
                                     />
                                 ))
                     }
@@ -94,7 +94,7 @@ const baseUrl = import.meta.env.BASE_URL;
                     <CourseCard
                         title="Архив"
                         description="Здесь вы можете найти старые лабораторные работы"
-                        href={`${baseUrl}/labs/archive`}
+                        href={`${baseUrl}/courses/archive`}
                     />
                 </ul>
             </div>

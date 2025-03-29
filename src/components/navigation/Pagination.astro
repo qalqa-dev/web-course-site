@@ -32,7 +32,7 @@ const getLabPrevNextId = (indxDiff: 1 | -1) => {
     {
         currentIdx - 1 >= 0 ? (
             <a
-                href={`/web-course-site/labs/${fullLink}/${getLabPrevNextId(-1)}`}
+                href={`/web-course-site/courses/${fullLink}/${getLabPrevNextId(-1)}`}
                 class="flex py-4 border-1 border-bg-accent_second rounded-[15px] justify-center items-center text-bg-accent_second font-titles  md:hover:bg-hover-secondary md:hover:text-text-primary md:hover:border-transparent pagination-btn"
             >
                 <svg
@@ -60,7 +60,7 @@ const getLabPrevNextId = (indxDiff: 1 | -1) => {
     {
         currentIdx + 1 < materialsOfYear.length ? (
             <a
-                href={`/web-course-site/labs/${fullLink}/${getLabPrevNextId(1)}`}
+                href={`/web-course-site/courses/${fullLink}/${getLabPrevNextId(1)}`}
                 class="flex border-1 py-4 border-bg-accent_second rounded-[15px] justify-center items-center text-bg-accent_second font-titles md:hover:bg-hover-secondary md:hover:text-text-primary md:hover:border-transparent pagination-btn"
             >
                 {`Следующая`}

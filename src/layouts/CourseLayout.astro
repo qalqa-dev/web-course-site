@@ -1,38 +1,55 @@
 ---
 import LectureCard from "@/components/LectureCard.astro";
-import { getCourseDataByName } from "@/data/coursesService";
-import { courseType, Lab, Schedule, Test } from "@/types/entities/Courses";
+import {
+    Course,
+    courseType,
+    Lab,
+    Schedule,
+    Test,
+} from "@/types/entities/Courses";
 import Heading from "@components/Heading.astro";
 import LinkCard from "@components/LinkCard.astro";
 import BaseLayoutSnow from "./BaseLayoutSnow.astro";
 
+interface Props extends Course {}
+
+const {
+    title,
+    description,
+    name, // Понадобился)
+    statement,
+    lectures,
+    schedule,
+    labs,
+    tests,
+    year,
+    type,
+}: Props = Astro.props;
+
 const baseUrl = import.meta.env.BASE_URL;
 
-const courseName = Astro.url.pathname.split("/").pop() || "";
-const courseData = await getCourseDataByName(courseName);
-
 const getHref = (post: Schedule | Lab | Test) => {
-    return `${baseUrl}/labs/${courseData.name}/${courseData.type === courseType.FULLTIME ? "full-time" : "distance"}/${courseData.year}/${post.name.slice(0, -3)}`;
+    return `${baseUrl}/courses/${name}/${type === courseType.FULLTIME ? "full-time" : "distance"}/${year}/${post.name.slice(0, -3)}`;
 };
 ---
 
 <BaseLayoutSnow>
-    <Heading title={courseData.title} description={courseData.description} />
+    <Heading title={title} description={description} />
     <section>
         {
-            (courseData.statement || courseData.schedule) && (
+            (statement || schedule) && (
                 <div class="max-w-screen px-5 lg:max-w-screen-lg xl:max-w-screen-xl mx-auto mb-30">
                     <ul class="grid grid-cols-1 md:grid-cols-2 gap-5 w-full">
-                        {courseData.statement && (
+                        {statement && (
                             <LinkCard
                                 title="Ведомость и доп. материалы"
-                                href={courseData.statement}
+                                href={statement}
                             />
                         )}
-                        {courseData.schedule && (
+                        {schedule && (
                             <LinkCard
-                                title={courseData.schedule.title}
-                                href={getHref(courseData.schedule)}
+                                title={schedule.title}
+                                href={getHref(schedule)}
                             />
                         )}
                     </ul>
@@ -40,13 +57,13 @@ const getHref = (post: Schedule | Lab | Test) => {
             )
         }
         {
-            courseData.labs && courseData.labs.length !== 0 && (
+            labs && labs.length !== 0 && (
                 <div class="max-w-screen px-5 lg:max-w-screen-lg xl:max-w-screen-xl mx-auto mb-30">
                     <h2 class="text-center mb-10 text-text-inverted">
                         Лабораторные работы
                     </h2>
                     <ul class="grid grid-cols-1 md:grid-cols-2 gap-5 w-full">
-                        {courseData.labs
+                        {labs
                             .sort((prev, next) => {
                                 return prev.number - next.number;
                             })
@@ -69,12 +86,12 @@ const getHref = (post: Schedule | Lab | Test) => {
             )
         }
         {
-            courseData.lectures && courseData.lectures.length > 0 && (
+            lectures && lectures.length > 0 && (
                 <div class="section-lectures bg-bg-primary py-20 rounded-[30px] sm:rounded-[60px] mb-30">
                     <div class="px-5 lg:max-w-screen-lg xl:max-w-screen-xl mx-auto">
                         <h2 class="text-center mb-10">Лекции</h2>
                         <ul class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5 w-full">
-                            {courseData.lectures.map((lecture, index) => (
+                            {lectures.map((lecture, index) => (
                                 <>
                                     {(() => {
                                         switch (index % 9) {
@@ -123,14 +140,14 @@ const getHref = (post: Schedule | Lab | Test) => {
             )
         }
         {
-            courseData.tests && (
+            tests && (
                 <div class="max-w-screen px-5 md:px-15 xl:px-0 lg:max-w-screen-lg xl:max-w-screen-xl mx-auto mb-30">
                     <h2 class="text-center text-text-inverted">
                         Рубежный контроль
                     </h2>
                     <ul class="grid grid-cols-1 md:grid-cols-2 gap-5 w-full">
-                        {courseData.tests.length !== 0 ? (
-                            courseData.tests.map((post) => (
+                        {tests.length !== 0 ? (
+                            tests.map((post) => (
                                 <LinkCard
                                     title={post.title}
                                     href={getHref(post)}
@@ -149,11 +166,11 @@ const getHref = (post: Schedule | Lab | Test) => {
         }
     </section>
     {
-        (!courseData.labs || courseData.labs.length === 0) &&
-            (!courseData.lectures || courseData.lectures.length === 0) &&
-            (!courseData.tests || courseData.tests.length === 0) &&
-            !courseData.statement &&
-            !courseData.schedule && (
+        (!labs || labs.length === 0) &&
+            (!lectures || lectures.length === 0) &&
+            (!tests || tests.length === 0) &&
+            !statement &&
+            !schedule && (
                 <div
                     id="no-results"
                     class="col-span-full text-center mt-10 text-text-inverted"
