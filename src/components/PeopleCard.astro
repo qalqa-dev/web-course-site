@@ -1,4 +1,6 @@
 ---
+import { urlsEnum } from "@/config/urls.config";
+
 interface Props {
     last_name: string;
     first_name: string;
@@ -33,7 +35,7 @@ const {
                     <div class="bg-bg-tertiary aspect-ratio-square rounded-[30px] mb-5 overflow-hidden flex items-end relative">
                         <img
                             class="w-full transition duration-300 group-hover:blur-sm group-focus:blur-sm"
-                            src={img_url}
+                            src={`${urlsEnum.AWS_S3_ENDPOINT_URL}/${img_url}`}
                             loading="lazy"
                             alt={`фото ${last_name} ${first_name}`}
                         />
@@ -87,7 +89,7 @@ const {
                         <div class="bg-bg-tertiary aspect-ratio-square rounded-[30px] mb-5 overflow-hidden flex items-end">
                             <img
                                 class="w-full"
-                                src={img_url}
+                                src={`${urlsEnum.AWS_S3_ENDPOINT_URL}/${img_url}`}
                                 loading="lazy"
                                 alt={`фото ${last_name} ${first_name}`}
                             />

@@ -1,3 +1,4 @@
+import { urlsEnum } from "@/config/urls.config.js";
 import axios, { AxiosInstance, AxiosRequestConfig } from "axios";
 
 type RequestData = Record<string, any>;
@@ -71,4 +72,5 @@ class Api {
     }
 }
 
-export const api = new Api({ baseUrl: "http://localhost:8000/api" });
+export const api = new Api({ baseUrl: urlsEnum.API_URL });
+export const awsS3Api = new Api({ baseUrl: urlsEnum.AWS_S3_ENDPOINT_URL });
