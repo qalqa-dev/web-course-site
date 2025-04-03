@@ -1,4 +1,4 @@
-import { urlsEnum } from "@/config/urls.config.js";
+import { apiEnum } from "@/types/Api.js";
 import axios, { AxiosInstance, AxiosRequestConfig } from "axios";
 
 type RequestData = Record<string, any>;
@@ -72,5 +72,5 @@ class Api {
     }
 }
 
-export const api = new Api({ baseUrl: urlsEnum.API_URL });
-export const awsS3Api = new Api({ baseUrl: urlsEnum.AWS_S3_ENDPOINT_URL });
+export const api = new Api({ baseUrl: apiEnum.BASE_URL });
+export const awsS3Api = new Api({ baseUrl: apiEnum.AWS_S3_ENDPOINT_URL });

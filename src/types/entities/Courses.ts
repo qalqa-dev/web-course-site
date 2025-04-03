@@ -1,24 +1,17 @@
-export type Lab = {
+type Post = {
     id: string;
     name: string;
     title: string;
+    content_url: string;
+};
+
+export type Lab = Post & {
     number: number;
-    content_url: string;
 };
 
-export type Schedule = {
-    id: string;
-    name: string;
-    title: string;
-    content_url: string;
-};
+export type Schedule = Post & {};
 
-export type Test = {
-    id: string;
-    name: string;
-    title: string;
-    content_url: string;
-};
+export type Test = Post & {};
 
 export type Course = {
     id: string;

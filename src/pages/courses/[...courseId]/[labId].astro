@@ -2,7 +2,6 @@
 import { getMarkdownFromUrl } from "@/data/services/contentService";
 import LabLayout from "@/layouts/LabLayout.astro";
 import { Course } from "@/types/entities/Courses";
-import Markdown from "astro-remote/lib/Markdown.astro";
 import { getCollection } from "astro:content";
 
 export async function getStaticPaths() {
@@ -20,6 +19,7 @@ export async function getStaticPaths() {
                 title: lab.title,
                 number: lab.number,
                 content_url: lab.content_url,
+                courseName: course.name,
             },
         }))
     );
@@ -27,9 +27,9 @@ export async function getStaticPaths() {
 
 const props = Astro.props;
 
-const content = await getMarkdownFromUrl(props.content_url);
+const { content, headings } = await getMarkdownFromUrl(props.content_url);
 ---
 
-<LabLayout {...props}>
-    <Markdown content={content} />
+<LabLayout {...props} headings={headings}>
+    <article set:html={content} />
 </LabLayout>

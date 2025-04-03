@@ -1,20 +1,21 @@
 ---
+import TOC from "@/components/navigation/TOC.astro";
 import Heading from "@components/Heading.astro";
 import ButtonTop from "@components/navigation/ButtonTop.astro";
 import BaseLayout from "./BaseLayout.astro";
 
-const { name, title, number, headings } = Astro.props;
+const { name, title, number, headings, courseName } = Astro.props;
 ---
 
 <BaseLayout title={title}>
     <ButtonTop />
-    <Heading title={title} number={number} />
+    <Heading title={title} number={number} backLink={`courses/${courseName}`} />
     <article class="box-content max-w-[700px] xl:max-w-screen-xl m-auto px-3.5">
         <div
             class="xl:grid grid-cols-[1fr_700px_1fr] gap-4 items-start text-text-inverted mb-5"
         >
             <aside class="side mx-auto top-25 pt-6 xl:px-6 xl:pt-0 xl:sticky">
-                <!-- {(<TOC headings={headings} />)} -->
+                {(<TOC headings={headings} />)}
             </aside>
             <div class="md">
                 <slot />
@@ -35,23 +36,24 @@ const { name, title, number, headings } = Astro.props;
     </article>
 </BaseLayout>
 <style scoped>
-    html.dark :global(.astro-code),
-    html.dark :global(.astro-code span) {
+    html.dark :global(.shiki),
+    html.dark :global(.shiki span) {
         transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
         transition-duration: 150ms;
         color: var(--shiki-dark) !important;
         background-color: var(--color-bg-code) !important;
+        text-wrap: wrap;
     }
 
-    html.light :global(.astro-code),
-    html.light :global(.astro-code span) {
+    html.light :global(.shiki),
+    html.light :global(.shiki span) {
         transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
         transition-duration: 150ms;
         color: var(--shiki-light) !important;
         background-color: var(--color-bg-code) !important;
     }
 
-    .md > :global(pre) {
+    .md :global(pre) {
         margin-bottom: 20px;
         padding: 20px;
         border-radius: 15px;
@@ -74,7 +76,7 @@ const { name, title, number, headings } = Astro.props;
         margin-bottom: 20px;
     }
 
-    .md > :global(h1) {
+    .md :global(h1) {
         display: none;
     }
 

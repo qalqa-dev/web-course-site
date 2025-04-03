@@ -1,13 +1,54 @@
+import { marked } from "marked";
+import { createHighlighter } from "shiki";
+import { awsS3Api } from "../api.js";
+
 export interface Heading {
     depth: number;
     text: string;
-    slug: string;
     id: string;
 }
 
 export const getMarkdownFromUrl = async (markdownUrl: string) => {
-    const response = await fetch(markdownUrl);
-    const data = response.text();
+    const content = await awsS3Api.getData<string>(markdownUrl);
 
-    return data;
+    return renderMarkdownWithHeadings(content);
+};
+
+const cleanMarkdown = (markdown: string) => {
+    return markdown.replace(/^---[\s\S]*?---/, "").trim();
+};
+
+const formatMarkdown = async () => {
+    const renderer = new marked.Renderer();
+    const headings: Heading[] = [];
+
+    const highlighter = await createHighlighter({
+        themes: ["catppuccin-mocha", "catppuccin-latte"],
+        langs: ["javascript"],
+    });
+
+    renderer.heading = function ({ tokens, depth }) {
+        const text = tokens.map((token) => token.raw).join(" ");
+        const id = text.toLowerCase().replace(/\s+/g, "-");
+        headings.push({ id, text, depth });
+        return `<h${depth} id="${id}">${text}</h${depth}>`;
+    };
+
+    renderer.code = function ({ text, lang, escaped }): string {
+        return highlighter.codeToHtml(text, {
+            lang: lang ?? "text",
+            themes: {
+                light: "catppuccin-latte",
+                dark: "catppuccin-mocha",
+            },
+        });
+    };
+
+    return { renderer, headings };
+};
+
+const renderMarkdownWithHeadings = async (markdown: string) => {
+    const { renderer, headings } = await formatMarkdown();
+    const content = marked(cleanMarkdown(markdown), { renderer });
+    return { content, headings };
 };

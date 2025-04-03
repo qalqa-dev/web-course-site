@@ -8,8 +8,9 @@ export type FetchParams = {
     headers?: Record<string, string>;
 };
 
-export const EnumApi = {
-    BASE_URL: "https://localhost:8000",
+export const apiEnum = {
+    BASE_URL: "http://localhost:8000/api",
+    AWS_S3_ENDPOINT_URL: "http://localhost:9000",
 } as const;
 
-export type EnumApi = (typeof EnumApi)[keyof typeof EnumApi];
+export type apiEnum = (typeof apiEnum)[keyof typeof apiEnum];
