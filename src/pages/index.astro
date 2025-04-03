@@ -3,31 +3,21 @@ import CourseCard from "@components/CourseCard.astro";
 import PeopleCard from "@components/PeopleCard.astro";
 import UsefulCard from "@components/UsefulCard.astro";
 import BaseLayoutSnow from "@layouts/BaseLayoutSnow.astro";
-import { shortCourses } from "@/data/services/coursesService";
 
-import { getCollection } from "astro:content";
+import { shortCourses } from "@/data/services/coursesService";
 import { teachers, mentors } from "@/data/services/peopleService";
+import { useful } from "@/data/services/usefulService";
 
 export const prerender = true;
-const allUseful = await getCollection("useful");
-const lengths = allUseful.map((post) => post.body?.length);
 
-const usefulItems = allUseful.map((item, index) => ({
-    ...item,
-    length: lengths[index],
-}));
-
-const usefulStatic = [
-    usefulItems.find((post) => post.id === "rules")!,
-    usefulItems.find((post) => post.id === "links")!,
+const sortedUseful = [
+    ...useful.filter((item) => item.name === "rules"),
+    ...useful.filter((item) => item.name === "links"),
+    ...useful
+        .filter((item) => item.name !== "rules" && item.name !== "links")
+        .sort(() => Math.random() - 0.5)
+        .slice(0, 2),
 ];
-
-const usefulDynamic = usefulItems
-    .filter((post) => post.id !== "rules" && post.id !== "links")
-    .sort(() => Math.random() - 0.5)
-    .slice(0, 2);
-
-const useful = [...usefulStatic, ...usefulDynamic];
 ---
 
 <BaseLayoutSnow>
@@ -136,9 +126,9 @@ const useful = [...usefulStatic, ...usefulDynamic];
                 class="useful-list grid grid-cols-1 xs:grid-cols-2 lg:grid-cols-3 gap-5"
             >
                 {
-                    useful
+                    sortedUseful
                         .slice(0, 2)
-                        .map((useful) => <UsefulCard useful={useful} />)
+                        .map((usefulItem) => <UsefulCard {...usefulItem} />)
                 }
                 <li>
                     <p class="order-0">
@@ -148,7 +138,7 @@ const useful = [...usefulStatic, ...usefulDynamic];
                     </p>
                 </li>
                 <div class="hidden sm:block">
-                    <UsefulCard useful={useful[2]} />
+                    <UsefulCard {...sortedUseful[2]} />
                 </div>
                 <li
                     class="other-useful flex flex-col justify-between order-1 lg:order-0"
@@ -165,7 +155,7 @@ const useful = [...usefulStatic, ...usefulDynamic];
                     >
                 </li>
                 <div class="hidden sm:block">
-                    <UsefulCard useful={useful[3]} />
+                    <UsefulCard {...sortedUseful[3]} />
                 </div>
             </ul>
         </div>

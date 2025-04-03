@@ -1,14 +1,12 @@
 ---
 import ListOfPosts from "@/components/ListOfPosts.astro";
 import { api } from "@/data/api";
+import { useful } from "@/data/services/usefulService";
 import { UsefulPost } from "@/types/entities/Useful";
 import CustomSelect from "@components/CustomSelect.astro";
 import Heading from "@components/Heading.astro";
 import SearchInput from "@components/SearchInput.astro";
 import BaseLayoutSnow from "@layouts/BaseLayoutSnow.astro";
-
-const useful = await api.getData<UsefulPost[]>("useful");
-// const lengths = useful.map((post) => post.body && post.body.length);
 
 const values = ["all", "first-sem", "second-sem", "third-sem", "unbound"];
 const labels = [

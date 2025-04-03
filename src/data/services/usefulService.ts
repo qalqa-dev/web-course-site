@@ -1,4 +1,4 @@
-import { Course } from "@/types/entities/Courses.js";
+import { UsefulPost } from "@/types/entities/Useful.js";
 import { api } from "../api.js";
 
-export const useful = await api.getData<Course[]>("useful");
+export const useful = await api.getData<UsefulPost[]>("useful");
