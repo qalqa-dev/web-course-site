@@ -1,18 +1,20 @@
 ---
 import Pagination from "@/components/navigation/Pagination.astro";
 import TOC from "@/components/navigation/TOC.astro";
+import { Lab } from "@/types/entities/Courses";
 import Heading from "@components/Heading.astro";
 import ButtonTop from "@components/navigation/ButtonTop.astro";
+import { getCollection } from "astro:content";
 import BaseLayout from "./BaseLayout.astro";
 
-import { courses } from "@/data/services/coursesService";
+const courses = await getCollection("courses");
 
-const { name, title, number, headings, courseName } = Astro.props;
+const { title, number, headings, courseName } = Astro.props;
 
-const course = courses.find((course) => course.name === courseName);
+const course = courses.find((course) => course.data.name === courseName);
 
-const prev = course?.labs.find((lab) => lab.number + 1 === number);
-const next = course?.labs.find((lab) => lab.number - 1 === number);
+const prev = course?.data.labs.find((lab: Lab) => lab.number + 1 === number);
+const next = course?.data.labs.find((lab: Lab) => lab.number - 1 === number);
 ---
 
 <BaseLayout title={title}>
