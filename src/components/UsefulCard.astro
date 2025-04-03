@@ -1,34 +1,23 @@
 ---
-import { UsefulPost } from "../types/Useful";
+import { UsefulPost } from "@/types/entities/Useful";
 
-interface Props {
-    useful: UsefulPost;
-}
+type Props = UsefulPost;
 
-const { useful }: Props = Astro.props;
+const { name, title, description, created_date }: Props = Astro.props;
 
-const href = `/useful/${useful.id}`;
+const href = `/useful/${name}`;
 
-const date = new Date(useful.data.date || Date.now());
-const formattedDate = date.toLocaleDateString("ru-RU", {
-    day: "2-digit",
-    month: "2-digit",
-    year: "2-digit",
-});
-
-const length = useful.length;
-const avgReadingSpeed = 160;
-const avgWordLength = 5;
-const getTimeToRead = (length: number) => {
-    return Math.ceil(length / (avgWordLength * avgReadingSpeed));
-};
+const formattedCreationDate = new Date(created_date).toLocaleDateString(
+    "ru-RU",
+    {
+        day: "2-digit",
+        month: "2-digit",
+        year: "2-digit",
+    }
+);
 ---
 
-<li
-    class="useful-card aspect-ratio-square"
-    data-course={useful.data.course}
-    data-title={useful.data.title}
->
+<li class="useful-card aspect-ratio-square" data-title={title}>
     <a
         class="card rounded-[30px] aspect-ratio-square flex flex-col bg-bg-secondary p-5 lg:p-7.5 lg:p-10 justify-between w-full userActions"
         aria-label="Перейти к статье"
@@ -36,10 +25,10 @@ const getTimeToRead = (length: number) => {
     >
         <div class="card__top-content">
             <h3 class="useful-item-title">
-                {useful.data.title}
+                {title}
             </h3>
             <p class="useful-item-descr">
-                {useful.data.description}
+                {description}
             </p>
         </div>
         <div class="card__bottom-content flex justify-between">
@@ -51,13 +40,13 @@ const getTimeToRead = (length: number) => {
                         alt="time-icon"
                     />
 
-                    <span class="text-[16px]"
+                    <!-- <span class="text-[16px]"
                         >~{length && getTimeToRead(length)} мин</span
-                    >
+                    > -->
                 </div>
                 {
-                    useful.data.date && (
-                        <span class="text-[16px]">{formattedDate}</span>
+                    formattedCreationDate && (
+                        <span class="text-[16px]">{formattedCreationDate}</span>
                     )
                 }
             </div>

@@ -1,13 +1,14 @@
 ---
-import BaseLayoutSnow from "@layouts/BaseLayoutSnow.astro";
-import { getCollection } from "astro:content";
+import ListOfPosts from "@/components/ListOfPosts.astro";
+import { api } from "@/data/api";
+import { UsefulPost } from "@/types/entities/Useful";
 import CustomSelect from "@components/CustomSelect.astro";
 import Heading from "@components/Heading.astro";
 import SearchInput from "@components/SearchInput.astro";
-import ListOfPosts from "@components/ListOfPosts.astro";
+import BaseLayoutSnow from "@layouts/BaseLayoutSnow.astro";
 
-const allUseful = await getCollection("useful");
-const lengths = allUseful.map((post) => post.body && post.body.length);
+const useful = await api.getData<UsefulPost[]>("useful");
+// const lengths = useful.map((post) => post.body && post.body.length);
 
 const values = ["all", "first-sem", "second-sem", "third-sem", "unbound"];
 const labels = [
@@ -111,7 +112,6 @@ const options = labels.map((label, index) => ({
 
     applyFilters();
 </script>
-
 <BaseLayoutSnow title="Полезное">
     <Heading
         title="База знаний"
@@ -134,7 +134,7 @@ const options = labels.map((label, index) => ({
             class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 2xl:grid-cols-3 gap-5"
             id="posts-container"
         >
-            <ListOfPosts allUseful={allUseful} lengths={lengths} />
+            <ListOfPosts useful={useful} />
         </ul>
         <div
             id="no-results"

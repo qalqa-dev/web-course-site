@@ -5,9 +5,9 @@ import Heading from "@components/Heading.astro";
 import ButtonTop from "@components/navigation/ButtonTop.astro";
 import BaseLayout from "./BaseLayout.astro";
 
-const { name, title, number, headings, courseName } = Astro.props;
+import { courses } from "@/data/services/coursesService";
 
-import { courses } from "@/data/services/usefulService";
+const { name, title, number, headings, courseName } = Astro.props;
 
 const course = courses.find((course) => course.name === courseName);
 

@@ -1,17 +1,12 @@
-type Post = {
-    id: string;
-    name: string;
-    title: string;
-    content_url: string;
-};
+import { Post } from "./Post.js";
 
 export type Lab = Post & {
     number: number;
 };
 
-export type Schedule = Post & {};
+export type Schedule = Post;
 
-export type Test = Post & {};
+export type Test = Post;
 
 export type Course = {
     id: string;

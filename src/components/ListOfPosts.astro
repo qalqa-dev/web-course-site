@@ -1,22 +1,25 @@
 ---
-import type { ListOfPosts } from "../types/Useful";
+import { UsefulPost } from "@/types/entities/Useful";
 import UsefulCard from "./UsefulCard.astro";
 
-interface Props extends ListOfPosts {}
+type Props = {
+    useful: UsefulPost[];
+    lengths?: number[];
+};
 
-const { allUseful, lengths } = Astro.props;
-const items = allUseful.map((item, index) => ({
+const { useful, lengths } = Astro.props;
+const items = useful.map((item, index) => ({
     ...item,
-    length: lengths && lengths[index],
+    // length: lengths && lengths[index],
 }));
 ---
 
 {
     items
-        .sort((a, b) => a.data.title.localeCompare(b.data.title))
+        .sort((a, b) => a.title.localeCompare(b.title))
         .map((post) => (
             <div class="post-wrapper">
-                <UsefulCard useful={post} />
+                <UsefulCard {...post} />
             </div>
         ))
 }
