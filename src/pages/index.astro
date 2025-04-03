@@ -3,9 +3,9 @@ import CourseCard from "@components/CourseCard.astro";
 import PeopleCard from "@components/PeopleCard.astro";
 import UsefulCard from "@components/UsefulCard.astro";
 import BaseLayoutSnow from "@layouts/BaseLayoutSnow.astro";
-import { shortCourses } from "@/data/services/coursesService";
-import { teachers, mentors } from "@/data/services/peopleService";
-import { useful } from "@/data/services/usefulService";
+import { shortCourses } from "@/data/services/CourseService.astro";
+import { teachers, mentors } from "@/data/services/PeopleService.astro";
+import { useful } from "@/data/services/UsefulService.astro";
 
 export const prerender = true;
 

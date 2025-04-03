@@ -1,3 +1,4 @@
+---
 import { marked } from "marked";
 import { createHighlighter } from "shiki";
 import { awsS3Api } from "../api.js";
@@ -8,19 +9,11 @@ export interface Heading {
     id: string;
 }
 
-export const getMarkdownFromUrl = async (markdownUrl: string) => {
-    const content = await awsS3Api.getData<string>(markdownUrl);
-
-    const markdownContent = await renderMarkdownWithHeadings(content);
-    const author = getAuthorFromMarkdown(content);
-    return { ...markdownContent, author };
-};
-
-const cleanMarkdown = (markdown: string) => {
+export const cleanMarkdown = (markdown: string) => {
     return markdown.replace(/^---[\s\S]*?---/, "").trim();
 };
 
-const formatMarkdown = async () => {
+export const formatMarkdown = async () => {
     const renderer = new marked.Renderer();
     const headings: Heading[] = [];
 
@@ -49,7 +42,7 @@ const formatMarkdown = async () => {
     return { renderer, headings };
 };
 
-const renderMarkdownWithHeadings = async (markdown: string) => {
+export const renderMarkdownWithHeadings = async (markdown: string) => {
     const { renderer, headings } = await formatMarkdown();
     const content = marked(cleanMarkdown(markdown), { renderer });
     return { content, headings };
@@ -60,3 +53,12 @@ export const getAuthorFromMarkdown = (markdown: string) => {
     const match = markdown.match(regex);
     return match ? match[1].trim() : undefined;
 };
+
+export const getMarkdownFromUrl = async (markdownUrl: string) => {
+    const content = await awsS3Api.getData<string>(markdownUrl);
+
+    const markdownContent = await renderMarkdownWithHeadings(content);
+    const author = getAuthorFromMarkdown(content);
+    return { ...markdownContent, author };
+};
+---
