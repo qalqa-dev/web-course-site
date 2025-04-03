@@ -32,7 +32,7 @@ const next = course?.labs.find((lab) => lab.number - 1 === number);
         <div class="mb-20">
             {number}
             {courseName}
-            <Pagination prev={prev} next={next} />
+            <Pagination prev={prev} next={next} courseName={courseName} />
         </div>
     </article>
 </BaseLayout>
