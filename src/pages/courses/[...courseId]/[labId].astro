@@ -30,6 +30,6 @@ const props = Astro.props;
 const { content, headings } = await getMarkdownFromUrl(props.content_url);
 ---
 
-<LabLayout {...props} headings={headings}>
+<LabLayout headings={headings} {...props}>
     <article set:html={content} />
 </LabLayout>

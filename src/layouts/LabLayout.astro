@@ -17,7 +17,11 @@ const next = course?.labs.find((lab) => lab.number - 1 === number);
 
 <BaseLayout title={title}>
     <ButtonTop />
-    <Heading title={title} number={number} backLink={`courses/${courseName}`} />
+    <Heading
+        title={title}
+        number={(number / 10).toFixed(1).split(".").join("")}
+        backLink={`courses/${courseName}`}
+    />
     <article class="box-content max-w-[700px] xl:max-w-screen-xl m-auto px-3.5">
         <div
             class="xl:grid grid-cols-[1fr_700px_1fr] gap-4 items-start text-text-inverted mb-5"
@@ -30,8 +34,6 @@ const next = course?.labs.find((lab) => lab.number - 1 === number);
             </div>
         </div>
         <div class="mb-20">
-            {number}
-            {courseName}
             <Pagination prev={prev} next={next} courseName={courseName} />
         </div>
     </article>
@@ -50,8 +52,8 @@ const next = course?.labs.find((lab) => lab.number - 1 === number);
     html.light :global(.shiki span) {
         transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
         transition-duration: 150ms;
-        color: var(--shiki-light) !important;
         background-color: var(--color-bg-code) !important;
+        text-wrap: wrap;
     }
 
     .md :global(pre) {

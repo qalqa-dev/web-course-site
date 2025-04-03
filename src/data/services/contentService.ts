@@ -24,7 +24,7 @@ const formatMarkdown = async () => {
 
     const highlighter = await createHighlighter({
         themes: ["catppuccin-mocha", "catppuccin-latte"],
-        langs: ["javascript"],
+        langs: ["html", "javascript", "typescript", "shell", "css"],
     });
 
     renderer.heading = function ({ tokens, depth }) {
@@ -36,7 +36,7 @@ const formatMarkdown = async () => {
 
     renderer.code = function ({ text, lang, escaped }): string {
         return highlighter.codeToHtml(text, {
-            lang: lang ?? "text",
+            lang: lang ?? "css",
             themes: {
                 light: "catppuccin-latte",
                 dark: "catppuccin-mocha",
