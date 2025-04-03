@@ -1,11 +1,7 @@
-import { glob } from "astro/loaders";
 import { defineCollection } from "astro:content";
 import { api } from "./data/api.js";
 import { Course } from "./types/entities/Courses.js";
-
-const useful = defineCollection({
-    loader: glob({ pattern: "**/*.md", base: "./src/useful" }),
-});
+import { UsefulPost } from "./types/entities/Useful.js";
 
 const courses = defineCollection({
     loader: async () => {
@@ -14,6 +10,18 @@ const courses = defineCollection({
             return {
                 ...course,
                 id: course.name,
+            };
+        });
+    },
+});
+
+const useful = defineCollection({
+    loader: async () => {
+        const courses = await api.getData<UsefulPost[]>("useful");
+        return courses.map((post) => {
+            return {
+                ...post,
+                id: post.name,
             };
         });
     },

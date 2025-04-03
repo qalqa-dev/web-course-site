@@ -11,7 +11,9 @@ export interface Heading {
 export const getMarkdownFromUrl = async (markdownUrl: string) => {
     const content = await awsS3Api.getData<string>(markdownUrl);
 
-    return renderMarkdownWithHeadings(content);
+    const markdownContent = await renderMarkdownWithHeadings(content);
+    const author = getAuthorFromMarkdown(content);
+    return { ...markdownContent, author };
 };
 
 const cleanMarkdown = (markdown: string) => {
@@ -51,4 +53,10 @@ const renderMarkdownWithHeadings = async (markdown: string) => {
     const { renderer, headings } = await formatMarkdown();
     const content = marked(cleanMarkdown(markdown), { renderer });
     return { content, headings };
+};
+
+export const getAuthorFromMarkdown = (markdown: string) => {
+    const regex = /_Автор:\s*([^\n_]+)_/;
+    const match = markdown.match(regex);
+    return match ? match[1].trim() : undefined;
 };

@@ -1,0 +1,34 @@
+---
+import { getMarkdownFromUrl } from "@/data/services/contentService";
+import PostLayout from "@layouts/PostLayout.astro";
+import { getCollection } from "astro:content";
+
+export async function getStaticPaths() {
+    const useful = await getCollection("useful");
+
+    return useful.map((useful) => ({
+        params: { id: useful.id },
+        props: {
+            ...useful.data,
+        },
+    }));
+}
+
+const props = Astro.props;
+
+const { content, author } = await getMarkdownFromUrl(props.content_url);
+---
+
+<PostLayout
+    id={props.id}
+    name={props.name}
+    title={props.title}
+    content_url={props.content_url}
+    description={props.description}
+    semester={props.semester}
+    last_update={props.last_update}
+    created_date={props.created_date}
+    author={author}
+>
+    <article set:html={content} />
+</PostLayout>

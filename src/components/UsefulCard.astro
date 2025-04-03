@@ -1,5 +1,6 @@
 ---
 import { UsefulPost } from "@/types/entities/Useful";
+import { formatDate } from "@/utils/date";
 
 type Props = UsefulPost;
 
@@ -7,14 +8,7 @@ const { name, title, description, created_date }: Props = Astro.props;
 
 const href = `/useful/${name}`;
 
-const formattedCreationDate = new Date(created_date).toLocaleDateString(
-    "ru-RU",
-    {
-        day: "2-digit",
-        month: "2-digit",
-        year: "2-digit",
-    }
-);
+const formattedCreationDate = formatDate(created_date);
 ---
 
 <li class="useful-card aspect-ratio-square" data-title={title}>
