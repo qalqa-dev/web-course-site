@@ -1,0 +1,23 @@
+---
+import CourseLayout from "@/layouts/CourseLayout.astro";
+import { Course } from "@/types/entities/Courses";
+import { getCollection } from "astro:content";
+
+type Props = Course & {};
+
+export async function getStaticPaths() {
+    const courses = await getCollection("courses");
+
+    return courses.map((course) => ({
+        params: { courseId: course.id },
+        props: {
+            ...course.data,
+            course,
+        },
+    }));
+}
+
+const props = Astro.props;
+---
+
+<CourseLayout {...props} />

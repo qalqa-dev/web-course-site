@@ -3,55 +3,28 @@ import ShareIcon from "public/assets/img/ShareIcon.astro";
 import Heading from "@components/Heading.astro";
 import ButtonTop from "@components/navigation/ButtonTop.astro";
 import BaseLayout from "./BaseLayout.astro";
-import { teachers, mentors } from "@/data/people";
+import { teachers, mentors } from "@/data/services/peopleService";
+import { apiEnum } from "@/types/Api";
+import { UsefulPost } from "@/types/entities/Useful";
+import { formatDate } from "@/utils/date";
 
-const { entry } = Astro.props;
+type Props = UsefulPost & {
+    author?: string;
+};
 
-const baseUrl = import.meta.env.BASE_URL;
-const author: string = entry.body.split("_")[1].split("Автор:")[1].trim();
+const { title, last_update, author } = Astro.props;
 
 const people = [...mentors, ...teachers];
 
-const activeAuthor = people.find((person) => person.fullName.includes(author));
+const activeAuthor = people.find((person) =>
+    author?.includes(person.first_name)
+);
+
+const formattedLastUpdate = formatDate(last_update);
 ---
 
-<script>
-    const getPostName = (): string | null => {
-        const match = window.location.href.match(/([^\/]+)\/?$/);
-        if (!match) return null;
-        return match[1];
-    };
-
-    const getLastEditDate = (filleName: string) => {
-        const res = fetch(
-            `https://api.github.com/repos/slavaver/web-course-site/commits?path=/src/useful/${filleName}.md&per_page=1`
-        );
-        return res
-            .then((res) => res.json())
-            .then((res) => {
-                if (res.length === 0) return null;
-                return new Date(res[0].commit.author.date).toLocaleDateString(
-                    "ru-RU",
-                    {
-                        day: "numeric",
-                        month: "numeric",
-                        year: "numeric",
-                    }
-                );
-            })
-            .catch(() => null);
-    };
-
-    const lastEdit = document.getElementById("last-edit-date");
-    const fileName = getPostName();
-    if (fileName) {
-        getLastEditDate(fileName).then((date) => {
-            if (date) lastEdit!.innerText = `Последнее обновление: ${date}`;
-        });
-    }
-</script>
-<BaseLayout title={entry.data.title}>
-    <Heading title={entry.data.title} backLink={"useful/"} />
+<BaseLayout title={title}>
+    <Heading title={title} backLink={"useful/"} />
     <main class="mx-auto pb-14">
         <ButtonTop />
         <p id="test"></p>
@@ -65,8 +38,9 @@ const activeAuthor = people.find((person) => person.fullName.includes(author));
                         class="aspect-square w-12 flex rounded-full overflow-hidden bg-bg-tertiary"
                     >
                         <img
-                            src={activeAuthor?.imgUrl ||
-                                `${baseUrl}/assets/img/cat-glasses.svg`}
+                            src={activeAuthor
+                                ? `${apiEnum.AWS_S3_ENDPOINT_URL}/${activeAuthor.img_url}`
+                                : `/assets/img/cat-glasses.svg`}
                             class="w-full h-full object-contain object-bottom"
                             alt={author}
                         />
@@ -76,15 +50,16 @@ const activeAuthor = people.find((person) => person.fullName.includes(author));
                             class="text-xs xl:text-base text-text-inverted !leading-[1.2] not-italic"
                         >
                             {
-                                activeAuthor?.name ||
-                                    author ||
-                                    "Неизвестный автор"
+                                activeAuthor
+                                    ? `${activeAuthor.first_name} ${activeAuthor.last_name}`
+                                    : author || "Неизвестный автор"
                             }
                         </p>
                         <time
                             class="text-xs xl:text-base text-text-tertiary leading-[1.2] xl:leading-[1.2] not-italic"
                             id="last-edit-date"
                         >
+                            {formattedLastUpdate}
                         </time>
                     </div>
                 </div>
@@ -96,167 +71,168 @@ const activeAuthor = people.find((person) => person.fullName.includes(author));
             </address>
         </div>
     </main>
-</BaseLayout>
 
-<script>
-    const shareButton = document.querySelector(".share-button");
+    <script>
+        const shareButton = document.querySelector(".share-button");
 
-    shareButton?.addEventListener("click", () => {
-        const url = window.location.href;
-        const text = document.title;
-        const shareData = {
-            title: text,
-            url: url,
-        };
-        navigator.share(shareData);
-    });
-</script>
+        shareButton?.addEventListener("click", () => {
+            const url = window.location.href;
+            const text = document.title;
+            const shareData = {
+                title: text,
+                url: url,
+            };
+            navigator.share(shareData);
+        });
+    </script>
 
-<style>
-    html.dark :global(.astro-code),
-    html.dark :global(.astro-code span) {
-        transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-        transition-duration: 150ms;
-        color: var(--shiki-dark) !important;
-        background-color: var(--color-bg-code) !important;
-    }
-
-    html.light :global(.astro-code),
-    html.light :global(.astro-code span) {
-        transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-        transition-duration: 150ms;
-        color: var(--shiki-light) !important;
-        background-color: var(--color-bg-code) !important;
-    }
-
-    .md > :global(pre) {
-        margin-bottom: 20px;
-        padding: 20px;
-        border-radius: 15px;
-    }
-
-    .md :global(code) {
-        transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-        transition-duration: 150ms;
-        font-family: "JetBrainsMono" !important;
-    }
-
-    .md {
-        color: var(--color-text-inverted);
-    }
-
-    .md :global(h1) {
-        display: none;
-    }
-
-    .md :global(em:first-of-type) {
-        display: none;
-    }
-
-    .md :global(h2, h3) {
-        margin-bottom: 20px;
-        text-wrap: balance;
-        line-height: 1.1;
-    }
-
-    .md :global(h2, h3) {
-        margin-top: 40px;
-    }
-
-    .md :global(:is(h2, h3):first-child) {
-        margin-top: 0;
-    }
-
-    .md :global(h2) {
-        font-size: 40px;
-    }
-
-    .md :global(h3) {
-        font-size: 28px;
-    }
-
-    @media (max-width: 1200px) {
-        .md :global(h3) {
-            font-size: 24px;
+    <style>
+        html.dark :global(.shiki),
+        html.dark :global(.shiki span) {
+            transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+            transition-duration: 150ms;
+            color: var(--shiki-dark) !important;
+            background-color: var(--color-bg-code) !important;
+            text-wrap: wrap;
         }
-    }
 
-    @media (max-width: 768px) {
+        html.light :global(.shiki),
+        html.light :global(.shiki span) {
+            transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+            transition-duration: 150ms;
+            background-color: var(--color-bg-code) !important;
+            text-wrap: wrap;
+        }
+
+        .md > :global(pre) {
+            margin-bottom: 20px;
+            padding: 20px;
+            border-radius: 15px;
+        }
+
+        .md :global(code) {
+            transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+            transition-duration: 150ms;
+            font-family: "JetBrainsMono" !important;
+        }
+
+        .md {
+            color: var(--color-text-inverted);
+        }
+
+        .md :global(h1) {
+            display: none;
+        }
+
+        .md :global(em:first-of-type) {
+            display: none;
+        }
+
+        .md :global(h2, h3) {
+            margin-bottom: 20px;
+            text-wrap: balance;
+            line-height: 1.1;
+        }
+
+        .md :global(h2, h3) {
+            margin-top: 40px;
+        }
+
+        .md :global(:is(h2, h3):first-child) {
+            margin-top: 0;
+        }
+
         .md :global(h2) {
+            font-size: 40px;
+        }
+
+        .md :global(h3) {
             font-size: 28px;
         }
 
-        .md :global(h3) {
-            font-size: 24px;
+        @media (max-width: 1200px) {
+            .md :global(h3) {
+                font-size: 24px;
+            }
         }
-    }
 
-    .md :global(p) {
-        margin-bottom: 20px;
-        line-height: 1.2;
-    }
+        @media (max-width: 768px) {
+            .md :global(h2) {
+                font-size: 28px;
+            }
 
-    .md :global(code:not(pre code)) {
-        color: var(--color-bg-accent-second);
-    }
+            .md :global(h3) {
+                font-size: 24px;
+            }
+        }
 
-    .md :global(ul, ol) {
-        margin-bottom: 20px;
-        padding-left: 40px;
-    }
+        .md :global(p) {
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
 
-    .md :global(ul) {
-        list-style-type: disc;
-    }
+        .md :global(code:not(pre code)) {
+            color: var(--color-bg-accent-second);
+        }
 
-    .md :global(ol) {
-        list-style-type: decimal-leading-zero;
-    }
+        .md :global(ul, ol) {
+            margin-bottom: 20px;
+            padding-left: 40px;
+        }
 
-    .md :global(li) {
-        margin-bottom: 10px;
-        font-size: 20px;
-        line-height: 1.2;
-    }
+        .md :global(ul) {
+            list-style-type: disc;
+        }
 
-    @media (max-width: 1200px) {
+        .md :global(ol) {
+            list-style-type: decimal-leading-zero;
+        }
+
         .md :global(li) {
-            font-size: 18px;
+            margin-bottom: 10px;
+            font-size: 20px;
+            line-height: 1.2;
         }
-    }
 
-    @media (max-width: 768px) {
-        .md :global(li) {
-            font-size: 16px;
+        @media (max-width: 1200px) {
+            .md :global(li) {
+                font-size: 18px;
+            }
         }
-    }
 
-    .md :global(a),
-    .md :global(code) {
-        word-wrap: break-word;
-    }
+        @media (max-width: 768px) {
+            .md :global(li) {
+                font-size: 16px;
+            }
+        }
 
-    .md :global(a) {
-        color: var(--color-text-tertiary);
-        text-decoration: underline;
-    }
+        .md :global(a),
+        .md :global(code) {
+            word-wrap: break-word;
+        }
 
-    .md :global(img) {
-        margin: 20px 0;
-        border-radius: 10px;
-    }
+        .md :global(a) {
+            color: var(--color-text-tertiary);
+            text-decoration: underline;
+        }
 
-    .md :global(pre) {
-        margin: 20px 0;
-        padding: 12px 0 12px 12px;
-        border-radius: 10px;
-    }
+        .md :global(img) {
+            margin: 20px 0;
+            border-radius: 10px;
+        }
 
-    .md :global(hr) {
-        margin: 20px 0;
-    }
+        .md :global(pre) {
+            margin: 20px 0;
+            padding: 12px 0 12px 12px;
+            border-radius: 10px;
+        }
 
-    .md > :global(*:last-child) {
-        margin-bottom: 0;
-    }
-</style>
+        .md :global(hr) {
+            margin: 20px 0;
+        }
+
+        .md > :global(*:last-child) {
+            margin-bottom: 0;
+        }
+    </style>
+</BaseLayout>

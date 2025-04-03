@@ -121,37 +121,37 @@ export default defineConfig({
             getCSS: () => `
             @font-face {
                 font-family: "Gilroy";
-                src: url(/web-course-site/assets/fonts/gilroy/Gilroy-Regular.ttf);
+                src: url(/assets/fonts/gilroy/Gilroy-Regular.ttf);
                 font-weight: 400;
             }
 
             @font-face {
                 font-family: "Gilroy";
-                src: url("/web-course-site/assets/fonts/gilroy/Gilroy-Medium.ttf");
+                src: url("/assets/fonts/gilroy/Gilroy-Medium.ttf");
                 font-weight: 500;
             }
                 
             @font-face {
                 font-family: "NextArt";
-                src: url("/web-course-site/assets/fonts/nextart/NEXTART_Regular.otf");
+                src: url("/assets/fonts/nextart/NEXTART_Regular.otf");
                 font-weight: 400;
             }
                 
             @font-face {
                 font-family: "NextArt";
-                src: url("/web-course-site/assets/fonts/nextart/NEXTART_SemiBold.otf");
+                src: url("/assets/fonts/nextart/NEXTART_SemiBold.otf");
                 font-weight: 600;
             }
 
             @font-face {
                 font-family: "NextArt";
-                src: url("/web-course-site/assets/fonts/nextart/NEXTART_Bold.otf");
+                src: url("/assets/fonts/nextart/NEXTART_Bold.otf");
                 font-weight: 700;
             }
 
             @font-face {
                 font-family: "JetBrainsMono";
-                src: url(/web-course-site/assets/fonts/jetbrains/JetBrainsMono.ttf);
+                src: url(/assets/fonts/jetbrains/JetBrainsMono.ttf);
                 font-weight:1-999
             }
 

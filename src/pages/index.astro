@@ -3,31 +3,20 @@ import CourseCard from "@components/CourseCard.astro";
 import PeopleCard from "@components/PeopleCard.astro";
 import UsefulCard from "@components/UsefulCard.astro";
 import BaseLayoutSnow from "@layouts/BaseLayoutSnow.astro";
-import { teachers, mentors } from "@/data/people";
-import courses from "@/data/courses";
+import { shortCourses } from "@/data/services/coursesService";
+import { teachers, mentors } from "@/data/services/peopleService";
+import { useful } from "@/data/services/usefulService";
 
-import { getCollection } from "astro:content";
-const allUseful = await getCollection("useful");
-const lengths = allUseful.map((post) => post.body?.length);
+export const prerender = true;
 
-const usefulItems = allUseful.map((item, index) => ({
-    ...item,
-    length: lengths[index],
-}));
-
-const usefulStatic = [
-    usefulItems.find((post) => post.id === "rules")!,
-    usefulItems.find((post) => post.id === "links")!,
+const sortedUseful = [
+    ...useful.filter((item) => item.name === "rules"),
+    ...useful.filter((item) => item.name === "links"),
+    ...useful
+        .filter((item) => item.name !== "rules" && item.name !== "links")
+        .sort(() => Math.random() - 0.5)
+        .slice(0, 2),
 ];
-
-const usefulDynamic = usefulItems
-    .filter((post) => post.id !== "rules" && post.id !== "links")
-    .sort(() => Math.random() - 0.5)
-    .slice(0, 2);
-
-const useful = [...usefulStatic, ...usefulDynamic];
-
-const baseUrl = import.meta.env.BASE_URL;
 ---
 
 <BaseLayoutSnow>
@@ -54,7 +43,7 @@ const baseUrl = import.meta.env.BASE_URL;
             <img
                 width="400"
                 height="400"
-                src=`${baseUrl}/assets/img/cat-code.webp`
+                src=`/assets/img/cat-code.webp`
                 alt="смешной котик программирует"
                 loading="lazy"
             />
@@ -68,27 +57,34 @@ const baseUrl = import.meta.env.BASE_URL;
             <div class="courses-list flex flex-col">
                 <ul id="staticCourses" class="flex flex-col gap-5 mb-5">
                     {
-                        courses
+                        shortCourses
                             .slice(0, 3)
                             .map((course) => (
                                 <CourseCard
                                     {...course}
-                                    href={`${baseUrl}/labs/${course.id}`}
+                                    href={`/courses/${course.name}`}
                                 />
                             ))
                     }
                 </ul>
                 <ul id="hiddenCourses" class="flex flex-col gap-5">
                     {
-                        courses
-                            .slice(3)
-                            .map((course) => (
-                                <CourseCard
-                                    {...course}
-                                    href={`${baseUrl}/labs/${course.id}`}
-                                />
-                            ))
+                        shortCourses.length > 3 &&
+                            shortCourses
+                                .slice(3)
+                                .map((course) => (
+                                    <CourseCard
+                                        {...course}
+                                        href={`/courses/${course.name}`}
+                                    />
+                                ))
                     }
+
+                    <CourseCard
+                        title="Архив"
+                        description="Здесь вы можете найти старые лабораторные работы"
+                        href={`/archive`}
+                    />
                 </ul>
             </div>
             <button
@@ -111,11 +107,7 @@ const baseUrl = import.meta.env.BASE_URL;
             >
                 {
                     teachers.map((teacher) => (
-                        <PeopleCard
-                            {...teacher}
-                            name={teacher.fullName}
-                            disableContact
-                        />
+                        <PeopleCard {...teacher} disableContact />
                     ))
                 }
             </ul>
@@ -133,9 +125,9 @@ const baseUrl = import.meta.env.BASE_URL;
                 class="useful-list grid grid-cols-1 xs:grid-cols-2 lg:grid-cols-3 gap-5"
             >
                 {
-                    useful
+                    sortedUseful
                         .slice(0, 2)
-                        .map((useful) => <UsefulCard useful={useful} />)
+                        .map((usefulItem) => <UsefulCard {...usefulItem} />)
                 }
                 <li>
                     <p class="order-0">
@@ -145,24 +137,24 @@ const baseUrl = import.meta.env.BASE_URL;
                     </p>
                 </li>
                 <div class="hidden sm:block">
-                    <UsefulCard useful={useful[2]} />
+                    <UsefulCard {...sortedUseful[2]} />
                 </div>
                 <li
                     class="other-useful flex flex-col justify-between order-1 lg:order-0"
                 >
                     <img
-                        src=`${baseUrl}/assets/img/cat-chill.svg`
+                        src=`/assets/img/cat-chill.svg`
                         alt="чилл кот лежит за ноутбуком"
                         aria-hidden="true"
                     />
                     <button
                         class="font-titles font-600 bg-bg-accent_second sm:px-5 px-11.5 py-5 rounded-[20px] userActionsLinkAlt"
-                        onclick={`window.location.href='/web-course-site/useful/'`}
+                        onclick={`window.location.href='/useful/'`}
                         >Еще больше полезностей</button
                     >
                 </li>
                 <div class="hidden sm:block">
-                    <UsefulCard useful={useful[3]} />
+                    <UsefulCard {...sortedUseful[3]} />
                 </div>
             </ul>
         </div>
@@ -175,7 +167,7 @@ const baseUrl = import.meta.env.BASE_URL;
             <ul
                 class="mentors-list grid grid-cols-1 xs:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-3 gap-5"
             >
-                <PeopleCard {...mentors[0]} />
+                <PeopleCard {...mentors[0]} middle_name="" />
                 <li>
                     <p class="order--1 lg:order-0 px-1">
                         Мы поддерживаем вас на пути освоения первых двух курсов,
@@ -189,21 +181,18 @@ const baseUrl = import.meta.env.BASE_URL;
                 >
                     <img
                         class="aspect-ratio-1"
-                        src=`${baseUrl}/assets/img/paw-heart.svg`
+                        src=`/assets/img/paw-heart.svg`
                         alt="Лапка котика с сердечками"
                         aria-hidden="true"
                     />
                     <button
                         class="font-titles text-text-primary font-600 bg-bg-accent_second px-11.5 py-5 rounded-[20px] userActionsLinkAlt"
-                        onclick={`window.location.href='/web-course-site/mentors'`}
+                        onclick={`window.location.href='/mentors'`}
                         >Смотреть всех</button
                     >
                 </li>
-                {
-                    mentors
-                        .slice(2, 4)
-                        .map((mentor) => <PeopleCard {...mentor} />)
-                }
+                {mentors[2] && <PeopleCard {...mentors[2]} middle_name="" />}
+                {mentors[3] && <PeopleCard {...mentors[3]} middle_name="" />}
             </ul>
         </div>
     </section>

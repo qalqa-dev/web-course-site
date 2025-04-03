@@ -1,8 +1,7 @@
 ---
 const today = new Date();
-import { mentors, teachers } from "@/data/people";
+import { mentors, teachers } from "@/data/services/peopleService";
 
-const baseUrl = import.meta.env.BASE_URL;
 const contacts = [...teachers, mentors[0]];
 ---
 
@@ -15,7 +14,7 @@ const contacts = [...teachers, mentors[0]];
         <img
             class="mb-auto"
             width="200px"
-            src={`${baseUrl}/assets/img/logo-full.svg`}
+            src={"/assets/img/logo-full.svg"}
             alt="Логотип Московского Политеха"
         />
         <div class="text-center sm:text-start">
@@ -26,11 +25,11 @@ const contacts = [...teachers, mentors[0]];
                 {
                     contacts.map((contact) => (
                         <li class="flex flex-col gap-1 sm:max-w-[205px]">
-                            <p class="line-height-none">{contact.fullName}</p>
+                            <p class="line-height-none">{`${contact.last_name} ${contact.first_name} ${contact.middle_name}`}</p>
                             <p class="text-sm mb-1">{contact.role}</p>
                             <div class="flex justify-center sm:justify-start gap-1">
                                 <img
-                                    src={`${baseUrl}/assets/img/tg-logo.svg`}
+                                    src={"/assets/img/tg-logo.svg"}
                                     alt="telegram-logo"
                                 />
                                 <a
@@ -50,8 +49,7 @@ const contacts = [...teachers, mentors[0]];
         <p class="mb-4 text-center">
             Если вы заметили ошибку или хотите предложить изменения, пожалуйста, <a
                 class="border-b-2"
-                href="https://github.com/slavaver/web-course-site/issues/new"
-                >создайте issue</a
+                href="https://github.com/slavaver/issues/new">создайте issue</a
             > в репозитории.
         </p>
     </div>
@@ -70,7 +68,7 @@ const contacts = [...teachers, mentors[0]];
             <p class="text-[16px]">
                 Разработка сайта <a
                     class="text-[16px]"
-                    href="https://t.me/qalqaa">@qalqaa</a
+                    href="https://t.me/qalqa_dev">@qalqa_dev</a
                 >
             </p>
         </div>

@@ -1,13 +1,12 @@
 ---
-import BaseLayoutSnow from "@layouts/BaseLayoutSnow.astro";
-import { getCollection } from "astro:content";
+import ListOfPosts from "@/components/ListOfPosts.astro";
+import { api } from "@/data/api";
+import { useful } from "@/data/services/usefulService";
+import { UsefulPost } from "@/types/entities/Useful";
 import CustomSelect from "@components/CustomSelect.astro";
 import Heading from "@components/Heading.astro";
 import SearchInput from "@components/SearchInput.astro";
-import ListOfPosts from "@components/ListOfPosts.astro";
-
-const allUseful = await getCollection("useful");
-const lengths = allUseful.map((post) => post.body && post.body.length);
+import BaseLayoutSnow from "@layouts/BaseLayoutSnow.astro";
 
 const values = ["all", "first-sem", "second-sem", "third-sem", "unbound"];
 const labels = [
@@ -21,8 +20,6 @@ const options = labels.map((label, index) => ({
     label,
     value: values[index],
 }));
-
-const baseUrl = import.meta.env.BASE_URL;
 ---
 
 <script>
@@ -61,21 +58,21 @@ const baseUrl = import.meta.env.BASE_URL;
                     case 0:
                         customBlock.innerHTML = `
                             <img
-                            src="/web-course-site/assets/img/paw-heart.svg"
+                            src="/assets/img/paw-heart.svg"
                             alt="лапка котика с сердечками"
                             class="mx-auto"/>`;
                         break;
                     case 1:
                         customBlock.innerHTML = `
                             <img
-                            src="/web-course-site/assets/img/cat-table-css.svg"
+                            src="/assets/img/cat-table-css.svg"
                             alt="котик сидит за столом"
                             class="mx-auto rounded-[20px]"/>`;
                         break;
                     case 2:
                         customBlock.innerHTML = `
                             <img
-                            src="/web-course-site/assets/img/cat-cute.svg"
+                            src="/assets/img/cat-cute.svg"
                             alt="котик кайфует"
                             class="mx-auto"/>`;
                         break;
@@ -113,7 +110,6 @@ const baseUrl = import.meta.env.BASE_URL;
 
     applyFilters();
 </script>
-
 <BaseLayoutSnow title="Полезное">
     <Heading
         title="База знаний"
@@ -136,7 +132,7 @@ const baseUrl = import.meta.env.BASE_URL;
             class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 2xl:grid-cols-3 gap-5"
             id="posts-container"
         >
-            <ListOfPosts allUseful={allUseful} lengths={lengths} />
+            <ListOfPosts useful={useful} />
         </ul>
         <div
             id="no-results"
@@ -149,7 +145,7 @@ const baseUrl = import.meta.env.BASE_URL;
                 лапок. Попробуйте ещё раз
             </p>
             <img
-                src=`${baseUrl}/assets/img/paw-heart.svg`
+                src=`/assets/img/paw-heart.svg`
                 alt="лапка котика с сердечками"
                 class="mx-auto mb-3"
             />

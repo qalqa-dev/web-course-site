@@ -12,11 +12,14 @@
     },
     "dependencies": {
         "@unocss/reset": "^66.0.0",
-        "astro": "^5.3.0",
+        "astro": "^5.5.4",
+        "astro-remote": "^0.3.4",
+        "axios": "^1.8.4",
+        "marked": "^15.0.7",
         "unocss": "^66.0.0"
     },
     "devDependencies": {
-        "prettier": "^3.5.1",
-        "typescript": "^5.7.3"
+        "prettier": "^3.5.3",
+        "typescript": "^5.8.2"
     }
 }

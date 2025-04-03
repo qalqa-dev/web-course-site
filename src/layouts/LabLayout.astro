@@ -1,85 +1,64 @@
 ---
+import Pagination from "@/components/navigation/Pagination.astro";
+import TOC from "@/components/navigation/TOC.astro";
+import { Lab } from "@/types/entities/Courses";
 import Heading from "@components/Heading.astro";
 import ButtonTop from "@components/navigation/ButtonTop.astro";
-import Pagination from "@components/navigation/Pagination.astro";
-import TOC from "@components/navigation/TOC.astro";
-import archiveYear from "@pages/labs/archive.astro";
-import { LabLayoutProps } from "../types/Labs";
+import { getCollection } from "astro:content";
 import BaseLayout from "./BaseLayout.astro";
 
-interface Props extends LabLayoutProps {}
+const courses = await getCollection("courses");
 
-const { frontmatter, headinglist, labUrl }: Props = Astro.props;
+const { title, number, headings, courseName } = Astro.props;
 
-let number: string = "";
+const course = courses.find((course) => course.data.name === courseName);
 
-if (frontmatter.number) {
-    number = (parseInt(frontmatter.number) / 10)
-        .toFixed(1)
-        .toString()
-        .split(".")
-        .join("");
-}
-const courseId = labUrl.split("/")[0];
-const isFulltime = labUrl.includes("full-time");
-const labYear = labUrl.split("/")[2];
+const prev = course?.data.labs.find((lab: Lab) => lab.number + 1 === number);
+const next = course?.data.labs.find((lab: Lab) => lab.number - 1 === number);
 ---
 
-<BaseLayout title={frontmatter.title}>
+<BaseLayout title={title}>
     <ButtonTop />
     <Heading
-        title={frontmatter.title}
-        number={number}
-        backLink={archiveYear === labYear
-            ? "labs/archive"
-            : `labs/${courseId}${isFulltime ? "" : "-distance"}`}
+        title={title}
+        number={(number / 10).toFixed(1).split(".").join("")}
+        backLink={`courses/${courseName}`}
     />
     <article class="box-content max-w-[700px] xl:max-w-screen-xl m-auto px-3.5">
         <div
-            class="xl:grid grid-cols-[1fr_700px_1fr] gap-4 items-start text-text-inverted mb-5">
+            class="xl:grid grid-cols-[1fr_700px_1fr] gap-4 items-start text-text-inverted mb-5"
+        >
             <aside class="side mx-auto top-25 pt-6 xl:px-6 xl:pt-0 xl:sticky">
-                {
-                    frontmatter.type !== "schedule" && (
-                        <TOC headings={headinglist} />
-                    )
-                }
+                {(<TOC headings={headings} />)}
             </aside>
             <div class="md">
                 <slot />
             </div>
         </div>
         <div class="mb-20">
-            {
-                frontmatter.type === "labs" && (
-                    <Pagination
-                        slug={frontmatter.number}
-                        collection={courseId}
-                        isFulltime={isFulltime}
-                        yearOnMain={labYear}
-                    />
-                )
-            }
+            <Pagination prev={prev} next={next} courseName={courseName} />
         </div>
     </article>
 </BaseLayout>
 <style scoped>
-    html.dark :global(.astro-code),
-    html.dark :global(.astro-code span) {
+    html.dark :global(.shiki),
+    html.dark :global(.shiki span) {
         transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
         transition-duration: 150ms;
         color: var(--shiki-dark) !important;
         background-color: var(--color-bg-code) !important;
+        text-wrap: wrap;
     }
 
-    html.light :global(.astro-code),
-    html.light :global(.astro-code span) {
+    html.light :global(.shiki),
+    html.light :global(.shiki span) {
         transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
         transition-duration: 150ms;
-        color: var(--shiki-light) !important;
         background-color: var(--color-bg-code) !important;
+        text-wrap: wrap;
     }
 
-    .md > :global(pre) {
+    .md :global(pre) {
         margin-bottom: 20px;
         padding: 20px;
         border-radius: 15px;
@@ -102,7 +81,7 @@ const labYear = labUrl.split("/")[2];
         margin-bottom: 20px;
     }
 
-    .md > :global(h1) {
+    .md :global(h1) {
         display: none;
     }
 

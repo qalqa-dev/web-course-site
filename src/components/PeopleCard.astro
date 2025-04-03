@@ -1,14 +1,25 @@
 ---
+import { apiEnum } from "@/types/Api";
+
 interface Props {
-    name: string;
-    imgUrl?: string;
+    last_name: string;
+    first_name: string;
+    middle_name: string;
+    img_url?: string;
     contact?: string;
     role?: string;
     disableContact?: boolean;
 }
 
-const { name, imgUrl, contact, role, disableContact } = Astro.props;
-const baseUrl = import.meta.env.BASE_URL;
+const {
+    last_name,
+    first_name,
+    middle_name,
+    img_url,
+    contact,
+    role,
+    disableContact,
+} = Astro.props;
 ---
 
 <li class="persons-item">
@@ -20,19 +31,20 @@ const baseUrl = import.meta.env.BASE_URL;
                 rel="noopener noreferrer"
                 class="relative group outline-none"
             >
-                {imgUrl ? (
+                {img_url ? (
                     <div class="bg-bg-tertiary aspect-ratio-square rounded-[30px] mb-5 overflow-hidden flex items-end relative">
                         <img
                             class="w-full transition duration-300 group-hover:blur-sm group-focus:blur-sm"
-                            src={imgUrl}
-                            alt={`фото ${name}`}
+                            src={`${apiEnum.AWS_S3_ENDPOINT_URL}/${img_url}`}
+                            loading="lazy"
+                            alt={`фото ${last_name} ${first_name}`}
                         />
                         <div class="absolute inset-0 flex items-center justify-center bg-bg-menu bg-opacity-50 opacity-0 transition duration-300 group-focus:opacity-100 group-hover:opacity-100">
                             <div class="flex items-center space-x-2">
                                 <span class="text-white">{`@${contact}`}</span>
                                 <img
                                     class="w-6 h-6"
-                                    src={`${baseUrl}/assets/img/tg-logo.svg`}
+                                    src={`/assets/img/tg-logo.svg`}
                                     alt="Telegram"
                                 />
                             </div>
@@ -45,7 +57,8 @@ const baseUrl = import.meta.env.BASE_URL;
                         </p>
                         <img
                             class="w-3/4 ml-auto mr-10 transition duration-300 group-hover:blur-sm group-focus:blur-sm"
-                            src={`${baseUrl}/assets/img/cat-glasses.svg`}
+                            loading="lazy"
+                            src={`/assets/img/cat-glasses.svg`}
                             alt="Cat Glasses"
                         />
                         <div class="absolute inset-0 flex items-center justify-center bg-bg-menu bg-opacity-50 opacity-0 transition duration-300 group-focus:opacity-100 group-hover:opacity-100">
@@ -53,7 +66,7 @@ const baseUrl = import.meta.env.BASE_URL;
                                 <span class="text-white">{`@${contact}`}</span>
                                 <img
                                     class="w-6 h-6"
-                                    src={`${baseUrl}/assets/img/tg-logo.svg`}
+                                    src={`/assets/img/tg-logo.svg`}
                                     alt="Telegram"
                                 />
                             </div>
@@ -61,7 +74,7 @@ const baseUrl = import.meta.env.BASE_URL;
                     </div>
                 )}
                 <h3 class="persons-item-name light:text-text-secondary mb-2 line-height-[1]">
-                    {name}
+                    {`${last_name} ${first_name} ${middle_name || ""}`}
                 </h3>
                 {role ? (
                     <p class="persons-item-role line-height-[1] text-text-tertiary">
@@ -72,12 +85,13 @@ const baseUrl = import.meta.env.BASE_URL;
         ) : (
             <div class="block">
                 <div class="relative">
-                    {imgUrl ? (
+                    {img_url ? (
                         <div class="bg-bg-tertiary aspect-ratio-square rounded-[30px] mb-5 overflow-hidden flex items-end">
                             <img
                                 class="w-full"
-                                src={imgUrl}
-                                alt={`фото ${name}`}
+                                src={`${apiEnum.AWS_S3_ENDPOINT_URL}/${img_url}`}
+                                loading="lazy"
+                                alt={`фото ${last_name} ${first_name}`}
                             />
                         </div>
                     ) : (
@@ -87,14 +101,15 @@ const baseUrl = import.meta.env.BASE_URL;
                             </p>
                             <img
                                 class="w-3/4 ml-auto mr-10"
-                                src={`${baseUrl}/assets/img/cat-glasses.svg`}
+                                loading="lazy"
+                                src={`/assets/img/cat-glasses.svg`}
                                 alt="Cat Glasses"
                             />
                         </div>
                     )}
                 </div>
                 <h3 class="persons-item-name light:text-text-secondary mb-2 line-height-[1]">
-                    {name}
+                    {`${last_name} ${first_name} ${middle_name}`}
                 </h3>
                 {role ? (
                     <p class="persons-item-role line-height-[1] text-text-tertiary">
