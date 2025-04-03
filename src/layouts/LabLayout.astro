@@ -1,10 +1,18 @@
 ---
+import Pagination from "@/components/navigation/Pagination.astro";
 import TOC from "@/components/navigation/TOC.astro";
 import Heading from "@components/Heading.astro";
 import ButtonTop from "@components/navigation/ButtonTop.astro";
 import BaseLayout from "./BaseLayout.astro";
 
 const { name, title, number, headings, courseName } = Astro.props;
+
+import { courses } from "@/data/services/usefulService";
+
+const course = courses.find((course) => course.name === courseName);
+
+const prev = course?.labs.find((lab) => lab.number + 1 === number);
+const next = course?.labs.find((lab) => lab.number - 1 === number);
 ---
 
 <BaseLayout title={title}>
@@ -22,16 +30,9 @@ const { name, title, number, headings, courseName } = Astro.props;
             </div>
         </div>
         <div class="mb-20">
-            <!-- {
-                (
-                    <Pagination
-                        slug={number}
-                        collection={}
-                        isFulltime={isFulltime}
-                        yearOnMain={labYear}
-                    />
-                )
-            } -->
+            {number}
+            {courseName}
+            <Pagination prev={prev} next={next} />
         </div>
     </article>
 </BaseLayout>
