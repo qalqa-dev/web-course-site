@@ -3,6 +3,7 @@ import LectureCard from "@/components/LectureCard.astro";
 import { Course, Lab, Schedule, Test } from "@/types/entities/Courses";
 import Heading from "@components/Heading.astro";
 import LinkCard from "@components/LinkCard.astro";
+import { Image } from "astro:assets";
 import BaseLayoutSnow from "./BaseLayoutSnow.astro";
 
 interface Props extends Course {}
@@ -90,7 +91,10 @@ const getHref = (post: Schedule | Lab | Test) => {
                                             case 0:
                                                 return (
                                                     <div class="flex aspect-ratio-square rounded-[30px] overflow-hidden">
-                                                        <img
+                                                        <Image
+                                                            width={400}
+                                                            height={400}
+                                                            loading="lazy"
                                                             src={`/assets/img/cat-chill-table.svg`}
                                                             alt="лапка котика с сердечками"
                                                             class="mx-auto"
@@ -100,7 +104,10 @@ const getHref = (post: Schedule | Lab | Test) => {
                                             case 4:
                                                 return (
                                                     <div class="flex aspect-ratio-square rounded-[30px] overflow-hidden">
-                                                        <img
+                                                        <Image
+                                                            width={400}
+                                                            height={400}
+                                                            loading="lazy"
                                                             src={`/assets/img/cat-table-vue.svg`}
                                                             alt="лапка котика с сердечками"
                                                             class="mx-auto"
@@ -110,7 +117,10 @@ const getHref = (post: Schedule | Lab | Test) => {
                                             case 8:
                                                 return (
                                                     <div class="flex aspect-ratio-square rounded-[30px] overflow-hidden">
-                                                        <img
+                                                        <Image
+                                                            width={400}
+                                                            height={400}
+                                                            loading="lazy"
                                                             src={`/assets/img/cat-cute.svg`}
                                                             alt="лапка котика с сердечками"
                                                             class="mx-auto"

@@ -1,4 +1,6 @@
 ---
+import { Image } from "astro:assets";
+
 import { apiEnum } from "@/types/Api";
 
 interface Props {
@@ -33,16 +35,21 @@ const {
             >
                 {img_url ? (
                     <div class="bg-bg-tertiary aspect-ratio-square rounded-[30px] mb-5 overflow-hidden flex items-end relative">
-                        <img
+                        <Image
+                            width={400}
+                            height={373}
+                            loading="lazy"
                             class="w-full transition duration-300 group-hover:blur-sm group-focus:blur-sm"
                             src={`${apiEnum.AWS_S3_ENDPOINT_URL}/${img_url}`}
-                            loading="lazy"
                             alt={`фото ${last_name} ${first_name}`}
                         />
                         <div class="absolute inset-0 flex items-center justify-center bg-bg-menu bg-opacity-50 opacity-0 transition duration-300 group-focus:opacity-100 group-hover:opacity-100">
                             <div class="flex items-center space-x-2">
                                 <span class="text-white">{`@${contact}`}</span>
-                                <img
+                                <Image
+                                    width={24}
+                                    height={24}
+                                    loading="lazy"
                                     class="w-6 h-6"
                                     src={`/assets/img/tg-logo.svg`}
                                     alt="Telegram"
@@ -55,7 +62,10 @@ const {
                         <p class="font-titles text-xl sm:text-base text-center mb-5">
                             Мастер знаний, временно в облике кота
                         </p>
-                        <img
+                        <Image
+                            width={400}
+                            height={373}
+                            loading="lazy"
                             class="w-3/4 ml-auto mr-10 transition duration-300 group-hover:blur-sm group-focus:blur-sm"
                             loading="lazy"
                             src={`/assets/img/cat-glasses.svg`}
@@ -64,7 +74,10 @@ const {
                         <div class="absolute inset-0 flex items-center justify-center bg-bg-menu bg-opacity-50 opacity-0 transition duration-300 group-focus:opacity-100 group-hover:opacity-100">
                             <div class="flex items-center space-x-2">
                                 <span class="text-white">{`@${contact}`}</span>
-                                <img
+                                <Image
+                                    width={24}
+                                    height={24}
+                                    loading="lazy"
                                     class="w-6 h-6"
                                     src={`/assets/img/tg-logo.svg`}
                                     alt="Telegram"
@@ -87,10 +100,12 @@ const {
                 <div class="relative">
                     {img_url ? (
                         <div class="bg-bg-tertiary aspect-ratio-square rounded-[30px] mb-5 overflow-hidden flex items-end">
-                            <img
+                            <Image
+                                width={400}
+                                height={373}
+                                loading="lazy"
                                 class="w-full"
                                 src={`${apiEnum.AWS_S3_ENDPOINT_URL}/${img_url}`}
-                                loading="lazy"
                                 alt={`фото ${last_name} ${first_name}`}
                             />
                         </div>
@@ -99,9 +114,11 @@ const {
                             <p class="font-titles text-xl sm:text-base text-center mb-5">
                                 Мастер знаний, временно в облике кота
                             </p>
-                            <img
-                                class="w-3/4 ml-auto mr-10"
+                            <Image
+                                width={400}
+                                height={373}
                                 loading="lazy"
+                                class="w-3/4 ml-auto mr-10"
                                 src={`/assets/img/cat-glasses.svg`}
                                 alt="Cat Glasses"
                             />

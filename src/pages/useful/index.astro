@@ -1,7 +1,7 @@
 ---
 import ListOfPosts from "@/components/ListOfPosts.astro";
 import { api } from "@/data/api";
-import { useful } from "@/data/services/usefulService";
+import { useful } from "@/data/services/UsefulService.astro";
 import { UsefulPost } from "@/types/entities/Useful";
 import CustomSelect from "@components/CustomSelect.astro";
 import Heading from "@components/Heading.astro";
@@ -57,21 +57,30 @@ const options = labels.map((label, index) => ({
                 switch (Math.floor(index / 7) % 3) {
                     case 0:
                         customBlock.innerHTML = `
-                            <img
+                        <Image
+                            width={400}
+                            height={400}
+                            loading="eager"
                             src="/assets/img/paw-heart.svg"
                             alt="лапка котика с сердечками"
                             class="mx-auto"/>`;
                         break;
                     case 1:
                         customBlock.innerHTML = `
-                            <img
+                        <Image
+                            width={400}
+                            height={400}
+                            loading="lazy"
                             src="/assets/img/cat-table-css.svg"
                             alt="котик сидит за столом"
                             class="mx-auto rounded-[20px]"/>`;
                         break;
                     case 2:
                         customBlock.innerHTML = `
-                            <img
+                        <Image
+                            width={400}
+                            height={400}
+                            loading="lazy"
                             src="/assets/img/cat-cute.svg"
                             alt="котик кайфует"
                             class="mx-auto"/>`;

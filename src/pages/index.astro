@@ -6,6 +6,7 @@ import BaseLayoutSnow from "@layouts/BaseLayoutSnow.astro";
 import { shortCourses } from "@/data/services/CourseService.astro";
 import { teachers, mentors } from "@/data/services/PeopleService.astro";
 import { useful } from "@/data/services/UsefulService.astro";
+import { Image } from "astro:assets";
 
 export const prerender = true;
 
@@ -40,12 +41,12 @@ const sortedUseful = [
                 Три&nbsp;курса&nbsp;последовательно погружают в&nbsp;разработку
                 на&nbsp;стороне клиента
             </p>
-            <img
-                width="400"
-                height="400"
+            <Image
+                width={400}
+                height={338}
+                loading="eager"
                 src=`/assets/img/cat-code.webp`
                 alt="смешной котик программирует"
-                loading="lazy"
             />
         </div>
     </section>
@@ -142,7 +143,10 @@ const sortedUseful = [
                 <li
                     class="other-useful flex flex-col justify-between order-1 lg:order-0"
                 >
-                    <img
+                    <Image
+                        width={400}
+                        height={300}
+                        loading="lazy"
                         src=`/assets/img/cat-chill.svg`
                         alt="чилл кот лежит за ноутбуком"
                         aria-hidden="true"
@@ -179,7 +183,10 @@ const sortedUseful = [
                 <li
                     class="other-mentors flex flex-col gap-5 order-1 2xl:order-0 aspect-ratio-square w-full"
                 >
-                    <img
+                    <Image
+                        width={400}
+                        height={400}
+                        loading="lazy"
                         class="aspect-ratio-1"
                         src=`/assets/img/paw-heart.svg`
                         alt="Лапка котика с сердечками"

@@ -3,6 +3,7 @@ import BurgerMenu from "./BurgerMenu.astro";
 import ThemeToggler from "./navigation/ThemeToggler.astro";
 import { shortCourses } from "@/data/services/CourseService.astro";
 import { routeEnum } from "@/config/routes.config";
+import { Image } from "astro:assets";
 
 const links = [
     {
@@ -35,8 +36,11 @@ const links = [
             class="header-content-vertical flex w-full max-w-screen-xl mx-auto items-center justify-between"
         >
             <a class="hidden md:block" href="/">
-                <img
+                <Image
+                    width="40"
+                    height="40"
                     class="h-10 w-10"
+                    loading="eager"
                     src="/assets/img/logo.svg"
                     alt="Site Logo"
                 />
