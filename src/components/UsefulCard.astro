@@ -1,4 +1,6 @@
 ---
+import { Image } from "astro:assets";
+
 import { UsefulPost } from "@/types/entities/Useful";
 import { formatDate } from "@/utils/date";
 
@@ -28,7 +30,10 @@ const formattedCreationDate = formatDate(created_date);
         <div class="card__bottom-content flex justify-between">
             <div class="flex items-end gap-4">
                 <div class="flex items-center gap-2">
-                    <img
+                    <Image
+                        width={20}
+                        height={20}
+                        loading="lazy"
                         class="mb-1"
                         src=`/assets/img/time-icon.svg`
                         alt="time-icon"
